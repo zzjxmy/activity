@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class
 
     ],
 
