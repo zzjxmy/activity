@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../libs/assets/font-awesome/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="../libs/assets/simple-line-icons/css/simple-line-icons.css" type="text/css" />
     <link rel="stylesheet" href="../libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
-
     <link rel="stylesheet" href="../css/font.css" type="text/css" />
     <link rel="stylesheet" href="../css/app.css" type="text/css" />
 </head>
@@ -17,23 +16,27 @@
 <div class="app app-header-fixed ">
 
 
-    <div class="container w-xxl w-auto-xs" ng-init="app.settings.container = false;">
-        <div class="text-center m-b-lg">
-            <h1 class="text-shadow text-white">404</h1>
-        </div>
-        <div class="list-group bg-info auto m-b-sm m-b-lg">
-            <a href="/" class="list-group-item">
-                <i class="fa fa-chevron-right text-muted"></i>
-                <i class="fa fa-fw fa-mail-forward m-r-xs"></i> 去首页
-            </a>
-            <a ui-sref="access.signin" href="login" class="list-group-item">
-                <i class="fa fa-chevron-right text-muted"></i>
-                <i class="fa fa-fw fa-sign-in m-r-xs"></i> 登录
-            </a>
+    <div class="container w-xxl w-auto-xs" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
+        <span class="navbar-brand block m-t">鱼泡泡活动系统</span>
+        <div class="m-b-lg">
+            <form name="form" class="form-validation">
+                <div class="text-danger wrapper text-center" ng-show="authError">
+
+                </div>
+                <div class="list-group list-group-sm">
+                    <div class="list-group-item">
+                        <input type="email" placeholder="Email" class="form-control no-border" ng-model="user.email" required>
+                    </div>
+                    <div class="list-group-item">
+                        <input type="password" placeholder="Password" class="form-control no-border" ng-model="user.password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>Log in</button>
+            </form>
         </div>
         <div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
             <p>
-                <small class="text-muted">鱼泡泡活动系统<br>&copy; {{date('Y')}}</small>
+                <small class="text-muted">yupaopao activity system<br>&copy; {{date('Y')}}</small>
             </p>
         </div>
     </div>

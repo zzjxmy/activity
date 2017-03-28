@@ -9,7 +9,7 @@
             <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a href="#/" class="navbar-brand text-lt">
+        <a href="/" class="navbar-brand text-lt">
             <i class="fa fa-btc"></i>
             <img src="../img/logo.png" alt="." class="hide">
             <span class="hidden-folded m-l-xs">活动系统</span>

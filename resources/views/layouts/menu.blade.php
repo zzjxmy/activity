@@ -3,7 +3,7 @@
     <div class="aside-wrap">
         <div class="navi-wrap">
             <!-- user -->
-            <div class="clearfix hidden-xs text-center hide" id="aside-user">
+            <div class="clearfix hidden-xs text-center hide show" id="aside-user">
                 <div class="dropdown wrapper">
                     <a href="app.page.profile">
                 <span class="thumb-lg w-auto-folded avatar m-t-sm">
@@ -74,12 +74,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="layout_app.html">
+                                <a href="{{url('activity/create')}}">
                                     <span>新建活动</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="layout_fullwidth.html">
+                                <a href="{{url('activity')}}">
                                     <span>活动列表</span>
                                 </a>
                             </li>
@@ -90,7 +90,7 @@
                             </li>
                             <li>
                                 <a href="layout_fullwidth.html">
-                                    <span>活动记录</span>
+                                    <span>访问记录</span>
                                 </a>
                             </li>
                             <li>
@@ -235,7 +235,6 @@
                     <li>
                         <a href="page_profile.html">
                             <i class="icon-user icon text-success-lter"></i>
-                            <b class="badge bg-success pull-right">30%</b>
                             <span>我的信息</span>
                         </a>
                     </li>
@@ -248,6 +247,7 @@
                     <li>
                         <a href="page_profile.html">
                             <i class="icon-key text-success-lter"></i>
+                            <b class="badge bg-success pull-right">30%</b>
                             <span>我的权限</span>
                         </a>
                     </li>

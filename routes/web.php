@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+
+Route::group(['namespace' => 'Admin','middleware' => []],function(){
+    Route::resource('activity','ActivityController');
+    Route::get('/', 'IndexController@index');
 });
