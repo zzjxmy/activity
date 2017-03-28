@@ -167,6 +167,34 @@
                                 <i class="fa fa-fw fa-angle-right text"></i>
                                 <i class="fa fa-fw fa-angle-down text-active"></i>
                             </span>
+                            <b class="badge bg-info pull-right">2</b>
+                            <i class="icon-doc icon"></i>
+                            <span>回调记录</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>回调记录</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui_button.html">
+                                    <span>请求查看</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui_button.html">
+                                    <span>响应查看</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
                             <b class="badge bg-info pull-right">4</b>
                             <i class=" icon-user-following icon"></i>
                             <span>权限管理</span>
@@ -215,6 +243,12 @@
                         <a href="page_profile.html">
                             <i class="glyphicon glyphicon-edit text-success-lter"></i>
                             <span>修改密码</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="page_profile.html">
+                            <i class="icon-key text-success-lter"></i>
+                            <span>我的权限</span>
                         </a>
                     </li>
                 </ul>

@@ -82,21 +82,20 @@
                                     <h4 class="font-thin m-t-none m-b text-muted">近三十天分类收入折线图</h4>
                                     <div ui-jq="plot" ui-refresh="showSpline" ui-options="
           [
-            { data: [ [1388538000000,7],[1388538000000,6.5],[1388538000000,12.5],[1388538000000,7],[1388538000000,9],[1388538000000,6],[1388538000000,11],[1388538000000,6.5],[1388538000000,8],[1388538000000,7] ], label:'订单', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-            { data: [ [0,4],[1,4.4],[2,7],[3,4.5],[4,3],[5,3.5],[6,6],[7,3],[8,4],[9,3] ], label:'活动页投票', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-            { data: [ [0,5],[1,4.5],[2,8],[3,4.5],[4,3],[5,3.5],[6,6],[7,3],[8,4],[9,3] ], label:'直播间打赏', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-            { data: [ [0,6],[1,4.6],[2,9],[3,4.5],[4,3],[5,3.5],[6,6],[7,3],[8,4],[9,3] ], label:'动态打赏', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } }
+            { data: [ [1490025599000,7],[1490111999000,6.5],[1490198399000,12.5],[1490284799000,7],[1490371199000,8] ], label:'订单', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+            { data: [ [1490025599000,3],[1490111999000,22],[1490198399000,71],[1490284799000,15],[1490371199000,17] ], label:'活动页投票', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+            { data: [ [1490025599000,17],[1490111999000,6.5],[1490198399000,40],[1490284799000,21],[1490371199000,25] ], label:'直播间打赏', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+            { data: [ [1490025599000,6],[1490111999000,8],[1490198399000,8],[1490284799000,60],[1490371199000,3] ], label:'动态打赏', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
           ],
           {
             colors: ['#23b7e5', '#7266ba','#fad733','#27c24c'],
-            series: { shadowSize: 1 },
-            xaxis:{ mode: 'time',
-                                timeformat: '%d/%m',
-                                tickLength: 10},
+            align:'right',
+            series: { shadowSize: 5},
+            xaxis:{ mode: 'time',timeformat: '%m/%d',ticks:[[1490025599000,'03/21'],[1490111999000,'03/22'],[1490198399000,'03/23'],[1490284799000,'03/24'],[1490371199000,'03/25']],tickLength: 10, min: 1490025599000, max: 1490371199000},
             yaxis:{ font: { color: '#a1a7ac' } },
-            grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+            grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec',labelMargin:0 },
             tooltip: true,
-            tooltipOpts: { content: '$%y.2',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+            tooltipOpts: { content: '%x  $%y.2',  defaultTheme: false, shifts: { x: 10, y: -25 } }
           }
         " style="height:246px" >
                                     </div>
@@ -118,7 +117,7 @@
         {
           colors: ['#e8eff0'],
           series: { shadowSize: 3 },
-          xaxis:{ show:true },
+          xaxis:{ show:true,font: { color: '#a1a7ac' } },
           yaxis:{ font: { color: '#a1a7ac' } },
           grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
           tooltip: true,
