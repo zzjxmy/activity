@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('libs/jquery/bootstrap/dist/css/bootstrap.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/font.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('css/activity.css')}}" type="text/css" />
 </head>
 <body>
 <div class="app app-header-fixed ">

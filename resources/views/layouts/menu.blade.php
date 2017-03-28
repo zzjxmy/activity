@@ -63,7 +63,7 @@
                                 <i class="fa fa-fw fa-angle-right text"></i>
                                 <i class="fa fa-fw fa-angle-down text-active"></i>
                             </span>
-                            <b class="badge bg-info pull-right">3</b>
+                            <b class="badge bg-info pull-right">5</b>
                             <i class="glyphicon glyphicon-th"></i>
                             <span>活动管理</span>
                         </a>
@@ -81,6 +81,16 @@
                             <li>
                                 <a href="layout_fullwidth.html">
                                     <span>活动列表</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout_fullwidth.html">
+                                    <span>短信落地页</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout_fullwidth.html">
+                                    <span>活动记录</span>
                                 </a>
                             </li>
                             <li>
