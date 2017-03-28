@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{asset('css/font.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/activity.css')}}" type="text/css" />
+    <script src="{{asset('js/config.js')}}"></script>
 </head>
 <body>
 <div class="app app-header-fixed ">
@@ -35,6 +36,7 @@
 <script src="{{asset('js/ui-nav.js')}}"></script>
 <script src="{{asset('js/ui-toggle.js')}}"></script>
 <script src="{{asset('js/ui-client.js')}}"></script>
+<script src="{{asset('js/activity.js')}}"></script>
 
 </body>
 </html>

@@ -5,3 +5,12 @@
     -webkit-transform:rotate(-60deg);
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
+.bootstrap-tagsinput{
+    min-width:340px;
+}
+.bootstrap-tagsinput>input{
+    min-width:340px;
+}
+.pr-sm{
+    padding-right: 12px;
+}
