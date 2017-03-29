@@ -24,4 +24,3 @@
         </div>
     </div>
 </div>
-<div class="line line-dashed b-b line-lg pull-in dongtai-module"></div>

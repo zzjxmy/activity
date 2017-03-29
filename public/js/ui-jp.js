@@ -5,11 +5,13 @@
         var self = $(this);
         var options = self.attr('ui-config');
         var type = self.attr('ui-type');
-        var config;
-        if(type == 'chat'){
-            config = eval('activity_chat.'+options);
-        }else{
-            config = eval('activity_config.'+options);
+        var config = {};
+        if(options){
+            if(type == 'chat'){
+                config = eval('activity_chat.'+options);
+            }else{
+                config = eval('activity_config.'+options);
+            }
         }
         uiLoad.load(jp_config[self.attr('ui-jq')]).then( function(){
             if(type == 'chat'){

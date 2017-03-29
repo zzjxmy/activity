@@ -40,7 +40,7 @@
                             <label class="col-sm-2 control-label">活动时间</label>
                             <div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
                                 <div class="input-group w-md">
-                                    <input name="time" id="from_date" ui-jq="daterangepicker" ui-config="activity_date" class="form-control w-md" placeholder="活动开放时间">
+                                    <input name="time" id="from_date" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="活动开放时间">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" onclick="$('#from_date').click()">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -58,13 +58,14 @@
                                 </label>
                             </div>
                         </div>
-                        @include('module.module')
-                        @include('module.attr-module')
                         <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" class="btn btn-sm btn-info" onclick="return false">添加自定义属性</button>
+                            <label class="col-sm-2 control-label">优惠券码</label>
+                            <div class="col-sm-10">
+                                <input ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">
                             </div>
                         </div>
+                        @include('module.module')
+                        @include('module.attr-module')
                     </form>
                 </div>
             </div>

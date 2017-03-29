@@ -23,9 +23,6 @@
             </div>
         </div>
         <div>
-            <input ui-jq="tagsinput" ui-options="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">
-        </div>
-        <div>
             <input type="text" class="form-control" style="width: 366px;" placeholder="官方收款账号TOKEN，不填则代表非官方收款">
         </div>
     </div>

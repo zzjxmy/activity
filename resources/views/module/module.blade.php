@@ -43,3 +43,4 @@
 @include('module.activity-module')
 @include('module.live-module')
 @include('module.dongtai-module')
+<div class="line line-dashed b-b line-lg pull-in"></div>
