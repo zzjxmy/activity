@@ -14,7 +14,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return view('activity.list');
+        return view('activity.list',['name' => '你好啊']);
     }
 
     /**

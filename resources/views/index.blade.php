@@ -65,7 +65,7 @@
                                     <div class="col-xs-12 m-b-md">
                                         <div class="r bg-light dker item hbox no-border">
                                             <div class="col w-xs v-middle hidden-md">
-                                                <div ng-init="d3_3=[60,40]" ui-jq="sparkline" ui-options="[60,40], {type:'pie', height:40, sliceColors:['#fad733','#fff']}" class="sparkline inline"></div>
+                                                <div ng-init="d3_3=[60,40]" ui-jq="sparkline" ui-type="chat" ui-config="activity_index_c" class="sparkline inline"></div>
                                             </div>
                                             <div class="col dk padder-v r-r">
                                                 <div class="text-primary-dk font-thin h1"><span>$12,670</span></div>
@@ -78,50 +78,19 @@
                             <div class="col-md-7">
                                 <div class="panel wrapper">
                                     <h4 class="font-thin m-t-none m-b text-muted">近三十天分类收入折线图</h4>
-                                    <div ui-jq="plot" ui-refresh="showSpline" ui-options="
-          [
-            { data: [ [1490025599000,7],[1490111999000,6.5],[1490198399000,12.5],[1490284799000,7],[1490371199000,8] ], label:'订单', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-            { data: [ [1490025599000,3],[1490111999000,22],[1490198399000,71],[1490284799000,15],[1490371199000,17] ], label:'活动页投票', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-            { data: [ [1490025599000,17],[1490111999000,6.5],[1490198399000,40],[1490284799000,21],[1490371199000,25] ], label:'直播间打赏', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-            { data: [ [1490025599000,6],[1490111999000,8],[1490198399000,8],[1490284799000,60],[1490371199000,3] ], label:'动态打赏', points: { show: false, radius: 1}, splines: { show: false, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-          ],
-          {
-            colors: ['#23b7e5', '#7266ba','#fad733','#27c24c'],
-            align:'right',
-            series: { shadowSize: 5},
-            xaxis:{ mode: 'time',timeformat: '%m/%d',ticks:[[1490025599000,'03/21'],[1490111999000,'03/22'],[1490198399000,'03/23'],[1490284799000,'03/24'],[1490371199000,'03/25']],tickLength: 10, min: 1490025599000, max: 1490371199000},
-            yaxis:{ font: { color: '#a1a7ac' } },
-            grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec',labelMargin:0 },
-            tooltip: true,
-            tooltipOpts: { content: '%x  $%y.2',  defaultTheme: false, shifts: { x: 10, y: -25 } }
-          }
-        " style="height:246px" >
+                                    <div ui-jq="plot" ui-refresh="showSpline" ui-config="activity_index_one" ui-type="chat" style="height:246px" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- / stats -->
-
                         <!-- service -->
                         <div class="panel hbox hbox-auto-xs no-border">
                             <div class="col wrapper">
                                 <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
                                 <h4 class="font-thin m-t-none m-b-none text-primary-lt">近三个月收入折线图</h4>
                                 <span class="m-b block text-sm text-muted"></span>
-                                <div ui-jq="plot" ui-options="
-        [
-          { data: [ [1,5.5],[2,6.5],[3,7],[4,8],[5,7.5],[6,7],[7,6.8],[8,7],[9,7.2],[10,7],[11,6.8],[12,7],[13,2.5],[14,3.5],[15,7],[16,7],[17,6],[18,7],[19,6.8],[20,5],[21,7],[22,8],[23,6.8],[24,7] ], lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
-        ],
-        {
-          colors: ['#e8eff0'],
-          series: { shadowSize: 3 },
-          xaxis:{ show:true,font: { color: '#a1a7ac' } },
-          yaxis:{ font: { color: '#a1a7ac' } },
-          grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
-          tooltip: true,
-          tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
-        }
-      " style="height:240px" >
+                                <div ui-jq="plot" ui-config="activity_index_two" ui-type="chat" style="height:240px" >
                                 </div>
                                 <span class="m-b block text-sm text-muted"></span>
                             </div>

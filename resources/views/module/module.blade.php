@@ -7,21 +7,29 @@
                 <i></i>
                 点赞
             </label>
+        </div>
+        <div class="checkbox module">
             <label class="i-checks pr-sm">
                 <input type="checkbox" value="" module-name="order-module">
                 <i></i>
                 订单
             </label>
+        </div>
+        <div class="checkbox module">
             <label class="i-checks pr-sm">
                 <input type="checkbox" value="" module-name="activity-vote-module">
                 <i></i>
                 活动页投票
             </label>
+        </div>
+        <div class="checkbox module">
             <label class="i-checks pr-sm">
                 <input type="checkbox" value="" module-name="live-module">
                 <i></i>
                 直播间打赏
             </label>
+        </div>
+        <div class="checkbox module">
             <label class="i-checks pr-sm">
                 <input type="checkbox" value="" module-name="dongtai-module">
                 <i></i>
