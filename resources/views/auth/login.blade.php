@@ -19,16 +19,26 @@
     <div class="container w-xxl w-auto-xs" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
         <span class="navbar-brand block m-t">鱼泡泡活动系统</span>
         <div class="m-b-lg">
-            <form name="form" class="form-validation">
+            <form name="form" class="form-validation" method="POST">
+                {{ csrf_field() }}
                 <div class="text-danger wrapper text-center" ng-show="authError">
-
                 </div>
                 <div class="list-group list-group-sm">
-                    <div class="list-group-item">
-                        <input type="email" placeholder="Email" class="form-control no-border" ng-model="user.email" required>
+                    <div class="list-group-item {{ $errors->has('name') ? ' has-error' : '' }}">
+                        <input type="name" placeholder="Userame" name="name"  value="{{ old('name') }}" class="form-control no-border" ng-model="user.name" required>
+                        @if ($errors->has('name'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
                     </div>
-                    <div class="list-group-item">
-                        <input type="password" placeholder="Password" class="form-control no-border" ng-model="user.password" required>
+                    <div class="list-group-item {{ $errors->has('password') ? ' has-error' : '' }}">
+                        <input type="password" placeholder="Password" name="password" class="form-control no-border" ng-model="user.password" required>
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                        @endif
                     </div>
                 </div>
                 <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>Log in</button>

@@ -42,7 +42,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="page_signin.html">注销</a>
+                            <a href="/logout">注销</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->
