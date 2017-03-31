@@ -200,9 +200,9 @@
                             <span>权限管理</span>
                         </a>
                         <ul class="nav nav-sub dk">
-                            <li class="nav-sub-header">
-                                <a href>
-                                    <span>权限管理</span>
+                            <li>
+                                <a href="{{url('purview')}}">
+                                    <span>角色列表</span>
                                 </a>
                             </li>
                             <li>
@@ -212,17 +212,12 @@
                             </li>
                             <li>
                                 <a href="ui_button.html">
-                                    <span>新增权限</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui_button.html">
-                                    <span>角色列表</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui_button.html">
                                     <span>权限列表</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui_button.html">
+                                    <span>新增权限</span>
                                 </a>
                             </li>
                         </ul>

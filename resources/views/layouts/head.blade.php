@@ -29,6 +29,9 @@
     <!-- / footer -->
 </div>
 <script src="{{asset('libs/jquery/jquery/dist/jquery.js')}}"></script>
+<!-- DataTables -->
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- / DataTables -->
 <script src="{{asset('libs/jquery/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="{{asset('js/ui-load.js')}}"></script>
 <script src="{{asset('js/ui-jp.config.js')}}"></script>
