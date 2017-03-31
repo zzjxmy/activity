@@ -3,10 +3,10 @@
     <div class="col-sm-10">
         <div class="row">
             <div class="col-md-2">
-                <input type="text" class="form-control" name="name[]" placeholder="中文名称" required>
+                <input type="text" class="form-control" name="name[]" value="" placeholder="中文名称" required>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" name="field[]" placeholder="字段名称（纯字母）" required>
+                <input type="text" class="form-control" name="field[]" value="" placeholder="字段名称（纯字母）,最多32个字符" required>
             </div>
             <div class="col-md-2">
                 <select name="type[]" class="form-control m-b">
@@ -18,7 +18,7 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <input type="text" name="explode[]" class="form-control" placeholder="多内容分隔符，默认以英文逗号分隔">
+                <input type="text" name="explode[]" value="" class="form-control" placeholder="多内容分隔符，默认以英文逗号分隔">
             </div>
             <div class="col-md-2">
                 <label class="i-checks pr-sm" style="padding-top: 6px;">
@@ -26,6 +26,20 @@
                     <i></i>
                     多内容
                 </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="length[]" value="" placeholder="长度，默认255">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="default[]" value="" placeholder="默认值，可为空">
+            </div>
+            <div class="col-md-2">
+                <select name="required[]" class="form-control m-b">
+                    <option value="0">非必填</option>
+                    <option value="1">必填</option>
+                </select>
             </div>
         </div>
         <div class="row m-b">

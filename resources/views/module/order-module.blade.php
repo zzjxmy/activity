@@ -3,7 +3,7 @@
     <label class="col-sm-2 control-label">订单组件配置</label>
     <div class="col-sm-10">
         <div class="input-group w-md m-b">
-            <input name="order[time]" id="from_date_order" ui-jq="daterangepicker" ui-options="{
+            <input name="order[time]" value="" id="from_date_order" ui-jq="daterangepicker" ui-options="{
                                     format: 'YYYY/MM/DD',
                                     startDate: '{{date('Y-m-d')}}',
                                     endDate: '{{date('Y-m-d',strtotime('+20 day'))}}'

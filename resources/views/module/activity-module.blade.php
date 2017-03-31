@@ -3,7 +3,7 @@
     <label class="col-sm-2 control-label">活动页投票组件配置</label>
     <div class="col-sm-10">
         <div class="input-group w-md m-b">
-            <input name="activity[time]" id="from_date_order" ui-jq="daterangepicker" ui-options="{
+            <input name="activity[time]" value="" id="from_date_order" ui-jq="daterangepicker" ui-options="{
                                     format: 'YYYY/MM/DD',
                                     startDate: '{{date('Y-m-d')}}',
                                     endDate: '{{date('Y-m-d',strtotime('+20 day'))}}'
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div>
-            <input type="text" class="form-control" style="width: 366px;" placeholder="官方收款账号TOKEN，不填则代表非官方收款">
+            <input name="activity[selfToken]" value="" type="text" class="form-control" style="width: 366px;" placeholder="官方收款账号TOKEN，不填则代表非官方收款">
         </div>
     </div>
 </div>
