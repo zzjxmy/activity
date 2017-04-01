@@ -12,17 +12,7 @@
                         {{$operate_title}}
                     </div>
                     <div class="table-responsive">
-                        <table ui-jq="dataTable" ui-options="{
-          sAjaxSource: '{{ URL::to('/purview') }}',
-          aoColumns: [
-            { mData: 'id' },
-            { mData: 'name' },
-            { mData: 'display_name' },
-            { mData: 'description' },
-            { mData: 'created_at' },
-            { mData: 'updated_at' }
-          ]
-        }" class="table table-striped b-t b-b">
+                        <table id="load" ui-jq="dataTable" ui-type="datatable" ui-config="dataTable" class="table table-striped b-t b-b">
                             <thead>
                             <tr>
                                 <th  style="width:10%">ID</th>

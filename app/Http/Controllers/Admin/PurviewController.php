@@ -25,7 +25,6 @@ class PurviewController extends Controller
         $this->data['operate_title'] = '角色列表';
 
         if($request->ajax()){
-            dd(Datatables::of(Role::query())->make(true));
             return Datatables::of(Role::query())->make(true);
         }
 

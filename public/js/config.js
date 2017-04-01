@@ -7,7 +7,7 @@ var activity_config = {
     'activity_date':{
         singleDatePicker: true,
         showDropdowns: true
-    },
+    }
 };
 
 var activity_chat = {
@@ -49,6 +49,25 @@ var activity_chat = {
         datas:[60,40],
         row:{
             type:'pie', height:40, sliceColors:['#fad733','#fff']
+        }
+    }
+
+};
+
+var activity_datatable = {
+    'dataTable':{
+        'datas':{
+            processing:true,
+            serverSide:true,
+            sAjaxSource: 'purview/index',
+            aoColumns: [
+                { mData: 'id' },
+                { mData: 'name' },
+                { mData: 'display_name' },
+                { mData: 'description' },
+                { mData: 'created_at' },
+                { mData: 'updated_at' }
+            ]
         }
     }
 };
