@@ -15,6 +15,6 @@ if(!function_exists('time_format_check')){
         $match = '/^[\d]{4}\/[\d]{2}\/[\d]{2}$/';
         if(!preg_match($match,trim($times[0])) || !preg_match($match,trim($times[1])))return false;
         if(strtotime($times[0]) > strtotime($times[1]))return false;
-        return ['start' => trim($times[0]) , 'end' => trim($times[1])];
+        return ['start_time' => trim($times[0]) , 'end_time' => trim($times[1])];
     }
 }

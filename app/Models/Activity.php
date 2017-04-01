@@ -12,6 +12,18 @@ use Illuminate\Http\Request;
  */
 class Activity extends Model
 {
+    protected $table = 'activity';
+    public $timestamps = false;
+    public $guarded = ['id'];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::creating(function(){
+            $this->create_time = time();
+        });
+    }
+
     public static function verify(Request $request){
         $validator = \Validator::make($request->input(),[
             'activityId' => 'required|alpha_num|size:32',

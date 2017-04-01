@@ -8,6 +8,7 @@
  */
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * 新建表
@@ -20,41 +21,53 @@ if(!function_exists('makeTable')){
         try{
             Schema::create(md5($tableName),function(Blueprint $table) use($fileds){
                 $table->bigIncrements('id')->unsigned();
+                $table->char('user_token',32);
                 $table->tinyInteger('status')->unsigned()->default(1);
                 foreach ($fileds as $val){
                     $validator = \Validator::make($val,[
-                        'field' => 'required|alpha|min:1|max:30'
+                        'field' => 'required|min:1|max:30'
                     ]);
                     if($validator->fails())throw new \Exception($validator->errors()->first());
+                    if(!preg_match('/^[a-z]+$/',$val['field'])){
+                        throw new \Exception('字段只能是小写英文字母');
+                    }
                     if($val['type'] == 2){
                         $table->text($val['field']);
                     }else{
                         $table->string($val['field'],$val['length']?intval($val['length']):255)->default($val['default']?:'');
                     }
                 }
+                $table->string('refuse_reason')->default('');
+                $table->integer('praise_num')->unsigned()->default(0);
+                $table->integer('vote_num')->unsigned()->default(0);
                 $table->timestamps();
+                $table->index('user_token');
+                $table->index('status');
             });
             return true;
         }catch (\Exception $exception){
-            throw new \Exception('表创建失败，请检查自定添加内容');
+            throw new \Exception($exception->getMessage());
         }
     }
 }
-
 /**
- * 检测表是否存在
+ * 删除表
+ * @param string $tableName
  */
-if(!function_exists('tableExists')){
-    function tableExists($tableName){
-        
+if(!function_exists('dropTable')){
+    function dropTable($tableName){
+        Schema::dropIfExists(md5($tableName));
     }
 }
 
+
 /**
  * 获取表所有字段
+ * @param string $tableName
  */
 if(!function_exists('getTableFiled')){
     function getTableFiled($tableName){
-
+        $columns = Schema::getColumnListing($tableName);
+        return $columns;
     }
 }
