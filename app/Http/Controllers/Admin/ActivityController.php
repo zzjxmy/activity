@@ -42,20 +42,18 @@ class ActivityController extends Controller
             //验证信息
             $verify = Activity::verify($request);
             $activityId = $request->input('activityId');
-            if($verify->fails())return $this->response([],10001,$verify->errors()->first());
-            $time = time_format($request->input('activityTime'));
-            if(!$time) return $this->response([],10002);
+            if($verify->fails())throw new \Exception($verify->errors()->first());
+            //获取表单数据
+            $info = $this->getActivityInfo($request);
             //整合数据
             $module = $this->checkModule($request);
             $addInfo = $this->checkInfo($request);
             //检查活动是否已经存在
             if(Activity::where(['activity_id'=>$activityId])->count())return $this->response([],0,'活动已经存在');
             //数据插入
-            \DB::transaction(function() use($addInfo,$module,$activityId){
+            \DB::transaction(function() use($info,$addInfo,$module,$activityId){
                 //活动数据插入
-                Activity::save([
-                    ''
-                ]);
+                Activity::save($info);
                 //表创建
                 $this->makeTable($addInfo,$activityId);
                 //组件数据插入
@@ -117,6 +115,18 @@ class ActivityController extends Controller
     }
 
     /**
+     * 分析表单信息
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
+    private function getActivityInfo(Request $request){
+        $time = time_format($request->input('activityTime'));
+        if(!$time) throw new \Exception('时间格式错误');
+
+    }
+
+    /**
      * 分析组件信息
      * @param Request $request
      * @return array
@@ -148,9 +158,13 @@ class ActivityController extends Controller
     private function checkInfo(Request $request){
         $attributes = $request->only(['name','field','type','explode','length','default','required']);
         $fileds = [];
+        $defaultFiled = ['id','status','created_at','updated_at'];
         $countField = count($attributes['field']);
         if($countField != count(array_unique($attributes['field']))){
             throw new \Exception('请勿使用相同的字段名');
+        }
+        if(count(array_diff($attributes['field'],$defaultFiled))){
+            throw new \Exception('请勿使用内置字段名');
         }
         foreach ($attributes as $key => $value){
             if(count($attributes[$key]) != $countField)throw new \Exception('无效字段');
@@ -159,33 +173,5 @@ class ActivityController extends Controller
             }
         }
         return $fileds;
-    }
-
-    /**
-     * 新建表
-     * @param array $fileds
-     * @param string $tableName
-     * @throws \Exception
-     */
-    private function makeTable(array $fileds,$tableName){
-        try{
-            Schema::create(md5($tableName),function(Blueprint $table) use($fileds){
-                $table->increments('id');
-                foreach ($fileds as $val){
-                    $validator = \Validator::make($val,[
-                        'field' => 'required|alpha|min:1|max:30'
-                    ]);
-                    if($validator->fails())throw new \Exception($validator->errors()->first());
-                    if($val['type'] == 2){
-                        $table->text($val['field']);
-                    }else{
-                        $table->string($val['field'],$val['length']?intval($val['length']):255)->default($val['default']?:'');
-                    }
-                }
-                $table->timestamps();
-            });
-        }catch (\Exception $exception){
-            throw new \Exception('表创建失败，请检查自定添加内容');
-        }
     }
 }

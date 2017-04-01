@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
+/**
+ * App\Models\Activity
+ *
+ * @mixin \Eloquent
+ */
 class Activity extends Model
 {
     public static function verify(Request $request){
