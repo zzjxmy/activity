@@ -14,22 +14,22 @@
                     内容填写
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="get">
+                    <form class="form-horizontal" method="post" action="{{url('activity')}}">
+                        {!! csrf_field() !!}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">选择活动</label>
                             <div class="col-sm-10">
-                                <select name="account" class="form-control m-b">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
+                                <select name="activityId" class="form-control m-b">
+                                    <option value="01d383726344c3ab17da5b397432095b">小蛮腰</option>
+                                    <option value="0621b9c8a15903e635d6318ca73fecbf">情人节活动</option>
+                                    <option value="07dfe21423d99d9e8858229fa57ce097">十大校花，等你来约</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">活动类型</label>
                             <div class="col-sm-10">
-                                <select name="type" class="form-control m-b" id="activity_type">
+                                <select name="activityType" class="form-control m-b" id="activity_type">
                                     <option value="1">默认</option>
                                     <option value="2">拉新</option>
                                     <option value="3">纯展示</option>
@@ -40,7 +40,7 @@
                             <label class="col-sm-2 control-label">活动时间</label>
                             <div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
                                 <div class="input-group w-md">
-                                    <input name="time" id="from_date" ui-jq="daterangepicker" ui-config="activity_date" class="form-control w-md" placeholder="活动开放时间">
+                                    <input name="activityTime" id="from_date" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="活动开放时间" required>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" onclick="$('#from_date').click()">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -53,23 +53,25 @@
                             <label class="col-sm-2 control-label">需要审核</label>
                             <div class="col-sm-10">
                                 <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
-                                    <input name="status" type="checkbox" id="is_check" checked="checked">
+                                    <input name="activityStatus" type="checkbox" value="1" id="is_check" checked="checked">
                                     <i></i>
                                 </label>
                             </div>
                         </div>
-                        @include('module.module')
-                        @include('module.attr-module')
                         <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" class="btn btn-sm btn-info" onclick="return false">添加自定义属性</button>
+                            <label class="col-sm-2 control-label">优惠券码</label>
+                            <div class="col-sm-10">
+                                <input name="activityCoupon" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">
                             </div>
                         </div>
+                        @include('module.module')
+                        @include('module.attr-module')
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@include('module.attr-add-module')
 <!-- /content -->
 @endsection

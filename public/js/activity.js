@@ -20,6 +20,17 @@ $(function(){
         }
     });
 
+    $("#add_attr").click(function(){
+        $("#activity_attr").append($("#activity_add_attr").html());
+        $(".activity_delete_attr").on('click',function(){
+            var parent = $(this).parent().parent().parent();
+            if(!parent.parent().hasClass('attr-parent')){
+                parent.prev().remove();
+                parent.remove();
+            }
+        });
+    });
+
     function ck(type){
         if(type == 1){
             $('#is_check').attr('checked',false);
@@ -37,4 +48,6 @@ $(function(){
             }
         });
     }
+
+
 });

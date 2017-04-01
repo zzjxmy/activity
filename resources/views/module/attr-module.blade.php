@@ -1,17 +1,8 @@
+<div class="form-group" id="activity_attr"></div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Button addons</label>
-    <div class="col-sm-10">
-        <div class="input-group m-b">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
-              </span>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
-              </span>
-        </div>
+    <div class="col-lg-offset-2 col-lg-10">
+        <button type="submit" class="btn btn-sm btn-info" id="add_attr" onclick="return false">添加自定义属性</button>
+        <button type="submit" class="btn btn-sm btn-primary">提交</button>
     </div>
 </div>
+<div class="line line-dashed b-b line-lg pull-in dongtai-module"></div>
