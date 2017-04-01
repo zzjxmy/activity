@@ -23,6 +23,7 @@ class PurviewController extends Controller
     public function index(Request $request)
     {
         $this->data['operate_title'] = '角色列表';
+
         if($request->ajax()){
             return Datatables::of(Role::query())->make(true);
         }
@@ -37,7 +38,7 @@ class PurviewController extends Controller
      */
     public function create()
     {
-        dd(1111);
+        //
     }
 
     /**
@@ -48,7 +49,7 @@ class PurviewController extends Controller
      */
     public function store(Request $request)
     {
-        dd(2222);
+        //
     }
 
     /**
