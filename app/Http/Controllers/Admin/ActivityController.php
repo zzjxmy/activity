@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Activity;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Schema;
 
 class ActivityController extends Controller
 {
@@ -14,7 +17,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return view('activity.list',['name' => '你好啊']);
+        return view('activity.list');
     }
 
     /**
@@ -31,11 +34,39 @@ class ActivityController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response | \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        try{
+            //验证信息
+            $verify = Activity::verify($request);
+            $activityId = $request->input('activityId');
+            if($verify->fails())throw new \Exception($verify->errors()->first());
+            //获取表单数据
+            $info = $this->getActivityInfo($request);
+            //整合数据
+            $module = $this->checkModule($request);
+            $addInfo = $this->checkInfo($request);
+            //检查活动是否已经存在
+            if(Activity::where(['activity_id'=>$activityId])->count())return $this->response([],0,'活动已经存在');
+            //数据插入
+            \DB::transaction(function() use($info,$addInfo,$module,$activityId){
+                //活动数据插入
+                Activity::save($info);
+                //表创建
+                $this->makeTable($addInfo,$activityId);
+                //组件数据插入
+                array_walk($module,function($key,$value) use ($activityId){
+                    $value['name'] = $key;
+                    $value['activity_id'] = $activityId;
+                    Activity::create($value);
+                },[]);
+            });
+            return $this->response([],200);
+        }catch (\Exception $exception){
+            return $this->response([],0,$exception->getMessage());
+        }
     }
 
     /**
@@ -81,5 +112,66 @@ class ActivityController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * 分析表单信息
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
+    private function getActivityInfo(Request $request){
+        $time = time_format($request->input('activityTime'));
+        if(!$time) throw new \Exception('时间格式错误');
+
+    }
+
+    /**
+     * 分析组件信息
+     * @param Request $request
+     * @return array
+     */
+    private function checkModule(Request $request){
+        $modules = $request->only(['likeCheck','orderCheck','activityCheck','liveCheck','dongtaiCheck']);
+        $newModule = [];
+        foreach ($modules as $key => $module){
+            $value = $request->input($module);
+            if($value){
+                $time = isset($value['time'])?time_format($value['time']):false;
+                $newModule[$key] = [
+                    'start_time' => $time?$time['start']:'',
+                    'end_time' => $time?$time['end']:'',
+                    'num' => isset($value['num'])?intval($value['num']):0,
+                ];
+                if(isset($value['selfToken']))$newModule[$key]['selfToken'] = $value['selfToken'];
+            }
+        }
+        return $newModule;
+    }
+
+    /**
+     * 分析新增信息
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
+    private function checkInfo(Request $request){
+        $attributes = $request->only(['name','field','type','explode','length','default','required']);
+        $fileds = [];
+        $defaultFiled = ['id','status','created_at','updated_at'];
+        $countField = count($attributes['field']);
+        if($countField != count(array_unique($attributes['field']))){
+            throw new \Exception('请勿使用相同的字段名');
+        }
+        if(count(array_diff($attributes['field'],$defaultFiled))){
+            throw new \Exception('请勿使用内置字段名');
+        }
+        foreach ($attributes as $key => $value){
+            if(count($attributes[$key]) != $countField)throw new \Exception('无效字段');
+            for ($i=0;$i<count($value);$i++){
+                $fileds[$i][$key] = $value[$i];
+            }
+        }
+        return $fileds;
     }
 }
