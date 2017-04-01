@@ -12,7 +12,7 @@
                         {{$operate_title}}
                     </div>
                     <div class="table-responsive">
-                        <table id="load" ui-jq="dataTable" ui-type="datatable" ui-config="dataTable" class="table table-striped b-t b-b">
+                        <table ui-jq="dataTable" ui-type="datatable" ui-config="dataTable" class="table table-striped b-t b-b">
                             <thead>
                             <tr>
                                 <th  style="width:10%">ID</th>
