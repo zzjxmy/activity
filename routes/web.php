@@ -18,4 +18,6 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::group(['namespace' => 'Admin','middleware' => ['auth']],function(){
     Route::resource('activity','ActivityController');
     Route::get('/', 'IndexController@index');
+
+    Route::resource('purview','PurviewController');//权限管理
 });
