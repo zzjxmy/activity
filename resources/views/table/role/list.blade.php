@@ -1,0 +1,39 @@
+<el-table
+        :data="tableData"
+        style="width: 100%">
+    <el-table-column
+            label="角色ID"
+            prop="id">
+    </el-table-column>
+    <el-table-column
+            label="角色名"
+            prop="name">
+    </el-table-column>
+    <el-table-column
+            label="显示名"
+            prop="display_name">
+    </el-table-column>
+    <el-table-column
+            label="描述"
+            prop="description">
+    </el-table-column>
+    <el-table-column
+            label="创建时间"
+            prop="created_at">
+    </el-table-column>
+    <el-table-column
+            label="更新时间"
+            prop="updated_at">
+    </el-table-column>
+    <el-table-column label="操作" >
+        <template scope="scope">
+            <el-button
+                    size="small"
+            @click="handleEdit(scope.$index,scope.row.id)">编辑</el-button>
+            <el-button
+                    size="small"
+                    type="danger"
+            @click="handleDelete(scope.$index,scope.row)">删除</el-button>
+        </template>
+    </el-table-column>
+</el-table>
