@@ -19,12 +19,11 @@ use Illuminate\Support\Facades\Schema;
 if(!function_exists('makeTable')){
     function makeTable(array $filed,$tableName){
         try{
-            Schema::create(md5($tableName),function(Blueprint $table) use($filed){
+            Schema::create($tableName,function(Blueprint $table) use($filed){
                 $table->bigIncrements('id')->unsigned();
                 if(!in_array('token',$filed))$table->char('token',32);
-                $table->string('nick_name',32);
-                $table->char('mobile',11);
-                $table->char('user_token',32);
+                if(!in_array('mobile',$filed))$table->char('mobile',11);
+                if(!in_array('nick_name',$filed))$table->char('nick_name',100);
                 $table->tinyInteger('status')->unsigned()->default(1);
                 foreach ($filed as $val){
                     $validator = \Validator::make($val,[
@@ -44,7 +43,7 @@ if(!function_exists('makeTable')){
                 $table->integer('praise_num')->unsigned()->default(0);
                 $table->integer('vote_num')->unsigned()->default(0);
                 $table->timestamps();
-                $table->index('user_token');
+                $table->index('token');
                 $table->index('nick_name');
                 $table->index('mobile');
                 $table->index('status');
@@ -59,9 +58,9 @@ if(!function_exists('makeTable')){
  * 删除表
  * @param string $tableName
  */
-if(!function_exists('dropTable')){
-    function dropTable($tableName){
-        Schema::dropIfExists(md5($tableName));
+if(!function_exists('dropTableIfExists')){
+    function dropTableIfExists($tableName){
+        Schema::dropIfExists($tableName);
     }
 }
 

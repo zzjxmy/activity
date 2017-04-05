@@ -12,10 +12,13 @@
     <link rel="stylesheet" href="{{asset('css/font.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/activity.css')}}" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
     <script src="{{asset('js/config.js')}}"></script>
+    <script src="{{asset('js/vue.js')}}"></script>
+    <script src="{{asset('js/element-ui.js')}}"></script>
 </head>
 <body>
-<div class="app app-header-fixed ">
+<div id="app" class="app app-header-fixed ">
     @include('layouts.nav')
     @include('layouts.menu')
     @yield('content')
@@ -29,9 +32,6 @@
     <!-- / footer -->
 </div>
 <script src="{{asset('libs/jquery/jquery/dist/jquery.js')}}"></script>
-<!-- DataTables -->
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<!-- / DataTables -->
 <script src="{{asset('libs/jquery/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="{{asset('js/ui-load.js')}}"></script>
 <script src="{{asset('js/ui-jp.config.js')}}"></script>
@@ -40,6 +40,7 @@
 <script src="{{asset('js/ui-toggle.js')}}"></script>
 <script src="{{asset('js/ui-client.js')}}"></script>
 <script src="{{asset('js/activity.js')}}"></script>
-
+@yield('form')
+@yield('vue')
 </body>
 </html>

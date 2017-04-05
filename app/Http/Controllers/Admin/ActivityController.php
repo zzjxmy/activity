@@ -51,7 +51,7 @@ class ActivityController extends Controller
             //检查活动是否已经存在
             if(Activity::where(['activity_id'=>$activityId])->count())return $this->response([],0,'活动已经存在');
             //表创建
-            makeTable($addInfo,$activityId);
+            makeTable($addInfo,md5($activityId));
             //数据插入
             \DB::transaction(function() use($info,$addInfo,$module,$activityId){
                 //活动数据插入
@@ -71,7 +71,7 @@ class ActivityController extends Controller
             return $this->response([],200);
         }catch (\Exception $exception){
             //失败之后删除表
-            dropTable($activityId);
+            dropTableIfExists(md5($activityId));
             return $this->response([],0,$exception->getMessage());
         }
     }
@@ -172,10 +172,10 @@ class ActivityController extends Controller
     private function checkInfo(Request $request){
         $attributes = $request->only([
             'name','field','type','explode','isExplode',
-            'length','default','required','order_by','search'
+            'length','default','unique','required','order_by','search'
         ]);
         $filed = [];
-        $defaultFiled = ['id','nick_name','mobile','status','created_at','updated_at'];
+        $defaultFiled = ['id','status','created_at','updated_at'];
         $countField = count($attributes['field']);
         if($countField != count(array_unique($attributes['field']?:[]))){
             throw new \Exception('请勿使用相同的字段名');

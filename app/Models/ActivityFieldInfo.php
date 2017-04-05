@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Activity
+ *
+ * @mixin \Eloquent
+ */
 class ActivityFieldInfo extends Model
 {
     protected $table = 'activity_field_info';

@@ -36,6 +36,12 @@
                 <input type="text" class="form-control" name="default[]" value="" placeholder="默认值，可为空">
             </div>
             <div class="col-md-2">
+                <select name="unique[]" class="form-control m-b">
+                    <option value="0">不唯一</option>
+                    <option value="1">唯一</option>
+                </select>
+            </div>
+            <div class="col-md-2">
                 <select name="search[]" class="form-control m-b">
                     <option value="0">不作为搜索字段</option>
                     <option value="1">作为搜索字段</option>
