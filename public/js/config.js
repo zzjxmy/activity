@@ -59,7 +59,7 @@ var activity_datatable = {
         'datas':{
             processing:true,
             serverSide:true,
-            sAjaxSource: 'purview/index',
+            sAjaxSource: '/purview',
             aoColumns: [
                 { mData: 'id' },
                 { mData: 'name' },
