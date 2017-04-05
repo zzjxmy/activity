@@ -170,9 +170,12 @@ class ActivityController extends Controller
      * @throws \Exception
      */
     private function checkInfo(Request $request){
-        $attributes = $request->only(['name','field','type','explode','length','default','required']);
-        $fileds = [];
-        $defaultFiled = ['id','user_token','status','created_at','updated_at'];
+        $attributes = $request->only([
+            'name','field','type','explode','isExplode',
+            'length','default','required','order_by','search'
+        ]);
+        $filed = [];
+        $defaultFiled = ['id','nick_name','mobile','status','created_at','updated_at'];
         $countField = count($attributes['field']);
         if($countField != count(array_unique($attributes['field']?:[]))){
             throw new \Exception('请勿使用相同的字段名');
@@ -183,9 +186,13 @@ class ActivityController extends Controller
                 if($key == 'field' && in_array($value[$i],$defaultFiled)){
                     throw new \Exception('请勿使用内置字段名');
                 }
-                $fileds[$i][$key] = is_null($value[$i])?'':$value[$i];
+                if($key == 'length'){
+                    $filed[$i][$key] = empty($value[$i])?255:$value[$i];
+                }else{
+                    $filed[$i][$key] = is_null($value[$i])?'':$value[$i];
+                }
             }
         }
-        return $fileds;
+        return $filed;
     }
 }

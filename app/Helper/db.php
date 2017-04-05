@@ -17,13 +17,16 @@ use Illuminate\Support\Facades\Schema;
  * @throws \Exception
  */
 if(!function_exists('makeTable')){
-    function makeTable(array $fileds,$tableName){
+    function makeTable(array $filed,$tableName){
         try{
-            Schema::create(md5($tableName),function(Blueprint $table) use($fileds){
+            Schema::create(md5($tableName),function(Blueprint $table) use($filed){
                 $table->bigIncrements('id')->unsigned();
+                if(!in_array('token',$filed))$table->char('token',32);
+                $table->string('nick_name',32);
+                $table->char('mobile',11);
                 $table->char('user_token',32);
                 $table->tinyInteger('status')->unsigned()->default(1);
-                foreach ($fileds as $val){
+                foreach ($filed as $val){
                     $validator = \Validator::make($val,[
                         'field' => 'required|min:1|max:30'
                     ]);
@@ -42,6 +45,8 @@ if(!function_exists('makeTable')){
                 $table->integer('vote_num')->unsigned()->default(0);
                 $table->timestamps();
                 $table->index('user_token');
+                $table->index('nick_name');
+                $table->index('mobile');
                 $table->index('status');
             });
             return true;
