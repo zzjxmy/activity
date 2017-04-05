@@ -206,7 +206,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="ui_button.html">
+                                <a href="{{url('purview/create')}}">
                                     <span>新增角色</span>
                                 </a>
                             </li>

@@ -2,33 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Datatables;
 
-class PurviewController extends Controller
+class DatatablesController extends Controller
 {
-    public function __construct()
-    {
-        $this->data['master_title'] = '权限管理';
-        $this->data['selected_c'] = 'purview';
-    }
-
     /**
      * Display a listing of the resource.
-     * 角色列表
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->data['operate_title'] = '角色列表';
-
-        if($request->ajax()){
-            return Datatables::of(Role::query())->make(true);
-        }
-
-        return view('purview.list',$this->data);
+        //
     }
 
     /**
@@ -38,8 +24,7 @@ class PurviewController extends Controller
      */
     public function create()
     {
-        $this->data['operate_title'] = '新增角色';
-        return view('purview.create',$this->data);
+        //
     }
 
     /**
@@ -50,10 +35,19 @@ class PurviewController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //
     }
 
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
