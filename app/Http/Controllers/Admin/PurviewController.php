@@ -38,7 +38,8 @@ class PurviewController extends Controller
      */
     public function create()
     {
-        //
+        $this->data['operate_title'] = '新增角色';
+        return view('purview.create',$this->data);
     }
 
     /**
@@ -49,19 +50,10 @@ class PurviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

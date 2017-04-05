@@ -49,5 +49,9 @@ $(function(){
         });
     }
 
+   //表单提交取消
+    $("#form_reset").click(function(){
+        $("form")[0].reset();
+    });
 
 });
