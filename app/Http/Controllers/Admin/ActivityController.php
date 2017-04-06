@@ -51,9 +51,11 @@ class ActivityController extends Controller
             //检查活动是否已经存在
             if(Activity::where(['activity_id'=>$activityId])->count())return $this->response([],0,'活动已经存在');
             //表创建
+            $tableName = md5($activityId);
             makeTable($addInfo,md5($activityId));
             //数据插入
-            \DB::transaction(function() use($info,$addInfo,$module,$activityId){
+            \DB::transaction(function() use($info,$addInfo,$module,$tableName){
+                $info['table_name'] = $tableName;
                 //活动数据插入
                 $result = Activity::create($info);
                 //组件数据插入
