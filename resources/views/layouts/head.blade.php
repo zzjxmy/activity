@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
     <script src="{{asset('js/config.js')}}"></script>
     <script src="{{asset('js/vue.js')}}"></script>
-    <script src="{{asset('js/element-ui.js')}}"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 <div id="app" class="app app-header-fixed ">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Activity;
 use App\Models\ActivityFieldInfo;
 use App\Models\Modules;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,11 +13,21 @@ class ActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $request
+     * @return \Illuminate\Http\Response | \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()){
+            $data = Activity::with(['vote' => function($query){
+                $query->select(['activity_id','type','money']);
+            }])->paginate(intval($request->input('pageSize',15)));
+            $newData = $data->toArray();
+            foreach ($data as $key => $val){
+                $newData['data'][$key]['activity_name'] = $val->static_tmp->site_name;
+            }
+            return $this->response($newData);
+        }
         return view('activity.list',['searchPath'=>url('/activity')]);
     }
 
@@ -49,22 +60,20 @@ class ActivityController extends Controller
             $module = $this->checkModule($request);
             $addInfo = $this->checkInfo($request);
             //检查活动是否已经存在
-            if(Activity::where(['activity_id'=>$activityId])->count())return $this->response([],0,'活动已经存在');
+            if(Activity::where(['static_tmp_id'=>$activityId])->count())return $this->response([],0,'活动已经存在');
             //表创建
-            $tableName = md5($activityId);
-            makeTable($addInfo,md5($activityId));
+            makeTable($addInfo,$info['table_name']);
             //数据插入
-            \DB::transaction(function() use($info,$addInfo,$module,$tableName){
-                $info['table_name'] = $tableName;
-                //活动数据插入
+            \DB::transaction(function() use($info,$addInfo,$module){
+                //活动数据新增
                 $result = Activity::create($info);
-                //组件数据插入
+                //组件数据新增
                 array_walk($module,function($value,$key) use ($result){
                     $value['name'] = $key;
                     $value['activity_id'] = $result->id;
                     Modules::create($value);
                 },[]);
-                //表字段值插入
+                //表字段值新增
                 array_walk($addInfo,function($value,$key) use ($result){
                     $value['activity_id'] = $result->id;
                     ActivityFieldInfo::create($value);
@@ -133,12 +142,12 @@ class ActivityController extends Controller
         $time = time_format($request->input('activityTime'));
         if(!$time) throw new \Exception('时间格式错误');
         $data['start_time'] = strtotime($time['start_time']);
-        $data['end_time'] = strtotime($time['start_time'] .' 23:59:59');
-        $data['activity_id'] = $request->input('activityId');
+        $data['end_time'] = strtotime($time['end_time'] .' 23:59:59');
+        $data['static_tmp_id'] = $request->input('activityId');
         $data['coupon'] = $request->input('activityCoupon')?:'';
+        $data['table_name'] = md5($data['static_tmp_id']);
         $data['type'] = $request->input('activityType');
-        $data['activity_id'] = $request->input('activityId');
-        $data['status'] = $request->input('activityStatus',0);
+        $data['status'] = $request->input('activityStatus',2);
         return $data;
     }
 
@@ -173,7 +182,7 @@ class ActivityController extends Controller
      */
     private function checkInfo(Request $request){
         $attributes = $request->only([
-            'name','field','type','explode','isExplode',
+            'name','field','type','explode','is_explode',
             'length','default','unique','required','order_by','search'
         ]);
         $filed = [];

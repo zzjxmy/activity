@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DataController extends Controller
+class ActivityDataController extends Controller
 {
     /**
      * Display a listing of the resource.

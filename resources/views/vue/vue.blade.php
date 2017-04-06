@@ -21,7 +21,7 @@
                     total:0,
                     tableData:[],
                     formData: {
-                        pageSize:100,
+                        pageSize:15,
                         currentPage:1
                     }
                 }
@@ -30,9 +30,11 @@
                 loadData:function(){
                     var self = this;
                     $.get('{{isset($searchPath)?$searchPath:Request::url()}}',this.formData,function (res) {
-                        if(res.code === 1) {
-                            self.tableData = res.data.table;
-                            self.total = res.data.total;
+                        if(res.status === 200) {
+                            self.tableData = res.data;
+                            self.total = res.total;
+                        }else{
+                            self.$message.error(res.message);
                         }
                     });
                 },
