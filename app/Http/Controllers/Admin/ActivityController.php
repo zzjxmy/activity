@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Activity;
 use App\Models\ActivityFieldInfo;
 use App\Models\Modules;
-use App\Models\Vote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

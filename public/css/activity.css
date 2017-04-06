@@ -14,3 +14,15 @@
 .pr-sm{
     padding-right: 12px;
 }
+.demo-table-expand {
+    font-size: 0;
+}
+.demo-table-expand label {
+    width: auto;
+    color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+}
