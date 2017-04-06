@@ -2,33 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Datatables;
 
-class PurviewController extends Controller
+class RoleController extends Controller
 {
-    public function __construct()
-    {
-        $this->data['master_title'] = '权限管理';
-        $this->data['selected_c'] = 'purview';
-    }
-
     /**
      * Display a listing of the resource.
-     * 权限列表
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $this->data['operate_title'] = '权限列表';
-
         if($request->ajax()){
-            return Datatables::of(Permission::query())->make(true);
+            $data = [];
+            $name = $request->get('name');
+            $currentPage = $request->get('currentPage');
+            $pageSize = $request->get('pageSize');
+            if(strlen($name) > 0){
+                $total = Role::where('name',$name)->count();
+                $table = Role::where('name',$name)->skip($currentPage)->take($pageSize)->get();
+
+                $data = ['code'=>1,'data'=>['table'=>$table,'total'=>$total]];
+            }else{
+                $table = Role::all();
+                $total = Role::count();
+                $data = ['code'=>1,'data'=>['table'=>$table,'total'=>$total]];
+            }
+
+            return response()->json($data);
         }
 
-        return view('purview.list',$this->data);
+        return view('role.list',['searchPath'=>url('/role')]);
     }
 
     /**
@@ -38,8 +44,7 @@ class PurviewController extends Controller
      */
     public function create()
     {
-        $this->data['operate_title'] = '新增权限';
-        return view('purview.create',$this->data);
+        //
     }
 
     /**
@@ -50,10 +55,19 @@ class PurviewController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //
     }
 
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

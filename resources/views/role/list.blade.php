@@ -7,10 +7,10 @@
             </div>
             <div class="wrapper-md">
                 @section('form')
-                    @include('form.activity.list-form')
+                    @include('form.role.list-form')
                 @endsection
                 <table-search @submit="onSubmit"></table-search>
-                @include('table.activity.list')
+                @include('table.role.list')
                 @include('page.default')
             </div>
         </div>

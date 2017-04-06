@@ -29,7 +29,7 @@
             methods: {
                 loadData:function(){
                     var self = this;
-                    $.post('{{Request::url()}}',this.formData,function (res) {
+                    $.get('{{isset($searchPath)?$searchPath:Request::url()}}',this.formData,function (res) {
                         if(res.code === 1) {
                             self.tableData = res.data.table;
                             self.total = res.data.total;

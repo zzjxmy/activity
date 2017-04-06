@@ -22,6 +22,7 @@
     @include('layouts.nav')
     @include('layouts.menu')
     @yield('content')
+    @include('vue.vue')
     <!-- footer -->
     <footer id="footer" class="app-footer" role="footer">
         <div class="wrapper b-t bg-light">

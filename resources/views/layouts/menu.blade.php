@@ -202,22 +202,22 @@
                         <ul class="nav nav-sub dk">
                             <li>
                                 <a href="{{url('purview')}}">
-                                    <span>角色列表</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('purview/create')}}">
-                                    <span>新增角色</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui_button.html">
                                     <span>权限列表</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="ui_button.html">
+                                <a href="{{url('purview/create')}}">
                                     <span>新增权限</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{url('role')}}">
+                                    <span>角色列表</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{url('role/create')}}">
+                                    <span>新增角色</span>
                                 </a>
                             </li>
                         </ul>
