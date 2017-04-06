@@ -15,14 +15,13 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
     <script src="{{asset('js/config.js')}}"></script>
     <script src="{{asset('js/vue.js')}}"></script>
-    <script src="{{asset('js/element-ui.js')}}"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 <div id="app" class="app app-header-fixed ">
     @include('layouts.nav')
     @include('layouts.menu')
     @yield('content')
-    @include('vue.vue')
     <!-- footer -->
     <footer id="footer" class="app-footer" role="footer">
         <div class="wrapper b-t bg-light">
@@ -32,6 +31,8 @@
     </footer>
     <!-- / footer -->
 </div>
+@yield('form')
+<script>var ajax_url = '{{isset($searchPath)?$searchPath:Request::url()}}'</script>
 <script src="{{asset('libs/jquery/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('libs/jquery/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="{{asset('js/ui-load.js')}}"></script>
@@ -41,7 +42,6 @@
 <script src="{{asset('js/ui-toggle.js')}}"></script>
 <script src="{{asset('js/ui-client.js')}}"></script>
 <script src="{{asset('js/activity.js')}}"></script>
-@yield('form')
-@yield('vue')
+<script src="{{asset('js/activity_vue.js')}}"></script>
 </body>
 </html>

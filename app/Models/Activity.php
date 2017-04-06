@@ -71,4 +71,14 @@ class Activity extends Model
             'dongtai.array' => '无效组件',
         ];
     }
+
+    //with static_tmp
+    public function static_tmp(){
+        return $this->hasOne(StaticTmp::class,'id','static_tmp_id');
+    }
+
+    //with count vote
+    public function vote(){
+        return $this->hasMany(Vote::class,'activity_id','id');
+    }
 }

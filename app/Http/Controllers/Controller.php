@@ -18,10 +18,10 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      */
     public function response($data = [] ,$status = 200 ,$message = ''){
-        return response()->json([
+        $responseData = [
             'status' => $status ,
-            'msg' => $message?:trans('response.'.$status),
-            'data' => $data
-        ]);
+            'message' => $message?:trans('response.'.$status)
+        ];
+        return response()->json(array_merge($data,$responseData));
     }
 }

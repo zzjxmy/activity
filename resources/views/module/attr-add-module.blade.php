@@ -21,11 +21,10 @@
                 <input type="text" name="explode[]" value="" class="form-control" placeholder="多内容分隔符，默认以英文逗号分隔">
             </div>
             <div class="col-md-2">
-                <label class="i-checks pr-sm" style="padding-top: 6px;">
-                    <input type="checkbox" name="isExplode[]" value="" module-name="live-module">
-                    <i></i>
-                    多内容
-                </label>
+                <select name="is_explode[]" class="form-control m-b">
+                    <option value="0">不分割</option>
+                    <option value="1">分割</option>
+                </select>
             </div>
         </div>
         <div class="row">
