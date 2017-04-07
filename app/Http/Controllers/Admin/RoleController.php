@@ -18,14 +18,10 @@ class RoleController extends Controller
         if($request->ajax()){
             $data = [];
             $name = $request->get('name');
-            $currentPage = $request->get('currentPage',1);
-            $pageSize = $request->get('pageSize');
-            $skip = intval($currentPage-1)*$pageSize;
             if(strlen($name) > 0) {
-                $data = Role::where('name', $name)->paginate(intval($request->input('pageSize',15)));
-                dd($data);
+                $data = Role::where('name', $name)->paginate(intval($request->input('pageSize',15)))->toArray();
             }else{
-                $data = Role::paginate(intval($request->input('pageSize',15)));
+                $data = Role::paginate(intval($request->input('pageSize',15)))->toArray();
             }
 
             return $this->response($data);
