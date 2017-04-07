@@ -14,7 +14,7 @@ class Activity extends Model
 {
     protected $table = 'activity';
     public $timestamps = false;
-    public $guarded = ['id'];
+//    public $guarded = ['id'];
 
     public function __construct(array $attributes = [])
     {

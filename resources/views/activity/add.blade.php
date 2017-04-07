@@ -20,9 +20,9 @@
                             <label class="col-sm-2 control-label">选择活动</label>
                             <div class="col-sm-10">
                                 <select name="activityId" class="form-control m-b">
-                                    <option value="01d383726344c3ab17da5b397432095b">小蛮腰</option>
-                                    <option value="0621b9c8a15903e635d6318ca73fecbf">情人节活动</option>
-                                    <option value="07dfe21423d99d9e8858229fa57ce097">十大校花，等你来约</option>
+                                    @foreach($activity as $value)
+                                    <option value="{{$value['id']}}">{{$value['site_name']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

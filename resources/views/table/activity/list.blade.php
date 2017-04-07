@@ -1,5 +1,5 @@
 <el-table
-        :data="tableData"
+        :data="tableData"  v-loading.body="loading" element-loading-text="拼命加载中"
         style="width: 100%">
     <el-table-column type="expand" class="table table-striped b-t b-light">
         <template scope="props">
@@ -41,18 +41,18 @@
     </el-table-column>
     <el-table-column
             label="活动名称"
-            prop="activity_name" width="250">
+            prop="static_tmp.site_name" width="250">
     </el-table-column>
     <el-table-column
             label="活动类型"
-            prop="type" align="center">
+            prop="type" align="center" width="155">
         <template scope="scope">
             @{{['','默认','拉新','存展示'][scope.row.type]}}
         </template>
     </el-table-column>
     <el-table-column
             label="需要审核"
-            prop="status" align="center">
+            prop="status" align="center" width="153">
         <template scope="scope">
             @{{scope.row.status==1?'是':'否'}}
         </template>
@@ -63,26 +63,26 @@
     </el-table-column>
     <el-table-column
             label="活动开始时间"
-            prop="start_time">
+            prop="start_time" width="152">
         <template scope="scope">
             @{{(new Date(scope.row.start_time * 1000)).Format('yyyy-MM-dd hh:mm:ss')}}
         </template>
     </el-table-column>
     <el-table-column
             label="活动结束时间"
-            prop="end_time">
-        <template scope="scope">
+            prop="end_time" width="152">
+        <template scope="scope" >
             @{{(new Date(scope.row.end_time * 1000)).Format('yyyy-MM-dd hh:mm:ss')}}
         </template>
     </el-table-column>
     <el-table-column
             label="创建时间"
-            prop="create_time">
+            prop="create_time" width="152">
         <template scope="scope">
             @{{(new Date(scope.row.create_time * 1000)).Format('yyyy-MM-dd hh:mm:ss')}}
         </template>
     </el-table-column>
-    <el-table-column label="操作" width="200">
+    <el-table-column label="操作">
         <template scope="scope">
             <el-button
             size="small"
@@ -94,7 +94,7 @@
             <el-button
                     size="small"
                     type="danger"
-            @click="handleDelete(scope.$index,scope.row)">删除</el-button>
+            @click="deleteConfirm(scope.$index,scope.row,'111')">删除</el-button>
         </template>
     </el-table-column>
 </el-table>
