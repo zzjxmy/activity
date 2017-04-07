@@ -18,23 +18,16 @@ class RoleController extends Controller
         if($request->ajax()){
             $data = [];
             $name = $request->get('name');
-            $currentPage = $request->get('currentPage');
-            $pageSize = $request->get('pageSize');
-            if(strlen($name) > 0){
-                $total = Role::where('name',$name)->count();
-                $table = Role::where('name',$name)->skip($currentPage)->take($pageSize)->get();
-
-                $data = ['code'=>1,'data'=>['table'=>$table,'total'=>$total]];
+            if(strlen($name) > 0) {
+                $data = Role::where('name', $name)->paginate(intval($request->input('pageSize',15)))->toArray();
             }else{
-                $table = Role::all();
-                $total = Role::count();
-                $data = ['code'=>1,'data'=>['table'=>$table,'total'=>$total]];
+                $data = Role::paginate(intval($request->input('pageSize',15)))->toArray();
             }
 
-            return response()->json($data);
+            return $this->response($data);
         }
 
-        return view('role.list',['searchPath'=>url('/role')]);
+        return view('role.list',['searchPath'=>url('/role'),'operate_title'=>'角色列表']);
     }
 
     /**

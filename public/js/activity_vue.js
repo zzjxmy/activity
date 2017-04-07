@@ -27,16 +27,16 @@ new Vue({
         },
         onSubmit:function (formData) {
             this.formData = Object.assign(this.formData, formData);
-            if(this.formData.currentPage == 1) this.loadData();
-            this.formData.currentPage = 1;
+            if(this.formData.page == 1) this.loadData();
+            this.formData.page = 1;
         },
         currentChange: function (page) {
-            this.formData.currentPage = page;
+            this.formData.page = page;
             this.loadData();
         },
         sizeChange:function (size) {
             this.formData.pageSize = size;
-            this.formData.currentPage = 1;
+            this.formData.page = 1;
             this.loadData();
         },
         handleEdit: function (index,id) {
