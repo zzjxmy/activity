@@ -59,8 +59,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $data['data'] = Role::whereId($id)->first();
-        return $this->response($data);
+
     }
 
     /**
@@ -71,7 +70,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['data'] = Role::whereId($id)->first();
+        return $this->response($data);
     }
 
     /**
@@ -83,7 +83,17 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->input('id') != $id) return $this->response([],-200,'参数错误!');
+        if(Role::whereId($id)->update([
+            'name'=>$request->input('name'),
+            'display_name'=>$request->input('display_name'),
+            'description'=>$request->input('description')
+        ])){
+            $data['data'] =  Role::whereId($id)->first();
+            return $this->response($data,200,'修改成功');
+        }else{
+            return $this->response([],-200,'修改失败');
+        }
     }
 
     /**
@@ -94,6 +104,12 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Role::find($id);
+        if(!$role) return $this->response([],-200,'该记录不存在!');
+        if(Role::whereId($id)->delete()){
+            return $this->response([],200,'删除成功');
+        }else{
+            return $this->response([],-200,'删除失败');
+        }
     }
 }

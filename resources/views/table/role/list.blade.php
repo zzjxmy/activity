@@ -29,11 +29,11 @@
         <template scope="scope">
             <el-button
                     size="small"
-            @click="handleEdit('/role/'+scope.row.id)">编辑</el-button>
+            @click="handleEdit(scope.$index,'/role/'+scope.row.id+'/edit')">编辑</el-button>
             <el-button
                     size="small"
                     type="danger"
-            @click="handleDelete(scope.$index, scope.row.id)">删除</el-button>
+            @click="deleteConfirm(scope.$index, scope.row.id,'/role/'+scope.row.id)">删除</el-button>
         </template>
     </el-table-column>
 </el-table>
@@ -52,6 +52,6 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editSave('/role/'+form.id+'/edit')">确 定</el-button>
+        <el-button type="primary" @click="editSave('/role/'+form.id)">确 定</el-button>
     </div>
 </el-dialog>
