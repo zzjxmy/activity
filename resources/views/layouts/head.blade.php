@@ -33,7 +33,8 @@
     <!-- / footer -->
 </div>
 @yield('form')
-<script>var ajax_url = '{{isset($searchPath)?$searchPath:Request::url()}}'</script>
+<script>var ajax_url = '{{isset($searchPath)?$searchPath:Request::url()}}';</script>
+<script>var is_ajax = '{{$is_ajax?1:0}}';</script>
 <script src="{{asset('libs/jquery/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('libs/jquery/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="{{asset('js/ui-load.js')}}"></script>

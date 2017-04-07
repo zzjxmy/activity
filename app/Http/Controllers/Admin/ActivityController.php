@@ -83,7 +83,7 @@ class ActivityController extends Controller
         //获取所有的活动 排除已经添加的
         $activity = Activity::get(['static_tmp_id'])->toArray();
         $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))->get(['id','site_name'])->toArray();
-        return view('activity.add',['activity' => $activity]);
+        return view('activity.add',['activity' => $activity,'is_ajax' => false]);
     }
 
     /**
@@ -144,7 +144,7 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -155,7 +155,10 @@ class ActivityController extends Controller
      */
     public function edit($id)
     {
-        //
+        //获取所有的活动 排除已经添加的
+        $activity = Activity::where('id','<>',$id)->get(['static_tmp_id'])->toArray();
+        $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))->get(['id','site_name'])->toArray();
+        return view('activity.update',['activity' => $activity,'is_ajax' => false]);
     }
 
     /**

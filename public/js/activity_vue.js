@@ -57,10 +57,12 @@ new Vue({
                 }
             });
         },
-
+        //跳转页面
+        redirectUrl: function (url){
+            window.location.href = url;
+        },
         //编辑后保存
         editSave:function(url){
-            console.log(url, this.form);
             var self = this;
             self.fullscreenLoading = true;
             $.get(url, this.form, function (res) {
@@ -100,6 +102,6 @@ new Vue({
         }
     },
     created: function () {
-        this.loadData();
+        is_ajax=='1'?this.loadData():'';
     }
 });

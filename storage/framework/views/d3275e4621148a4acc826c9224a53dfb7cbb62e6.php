@@ -11,7 +11,7 @@
         <!-- brand -->
         <a href="/" class="navbar-brand text-lt">
             <i class="fa fa-btc"></i>
-            <img src="../img/logo.png" alt="." class="hide">
+            <img src="/img/logo.png" alt="." class="hide">
             <span class="hidden-folded m-l-xs">活动系统</span>
         </a>
         <!-- / brand -->
@@ -37,7 +37,7 @@
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="../img/a0.jpg" alt="...">
+                <img src="/img/a0.jpg" alt="...">
                 <i class="on md b-white bottom"></i>
               </span>
                     <span class="hidden-sm hidden-md">张志坚</span> <b class="caret"></b>

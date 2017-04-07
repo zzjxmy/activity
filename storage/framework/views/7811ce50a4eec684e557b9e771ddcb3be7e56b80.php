@@ -33,7 +33,8 @@
     <!-- / footer -->
 </div>
 <?php echo $__env->yieldContent('form'); ?>
-<script>var ajax_url = '<?php echo e(isset($searchPath)?$searchPath:Request::url()); ?>'</script>
+<script>var ajax_url = '<?php echo e(isset($searchPath)?$searchPath:Request::url()); ?>';</script>
+<script>var is_ajax = '<?php echo e($is_ajax?1:0); ?>';</script>
 <script src="<?php echo e(asset('libs/jquery/jquery/dist/jquery.js')); ?>"></script>
 <script src="<?php echo e(asset('libs/jquery/bootstrap/dist/js/bootstrap.js')); ?>"></script>
 <script src="<?php echo e(asset('js/ui-load.js')); ?>"></script>

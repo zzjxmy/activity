@@ -90,7 +90,7 @@
             @click="handleEdit(scope.$index,scope.row.id)">查看</el-button>
             <el-button
                     size="small"
-            @click="handleEdit(scope.$index,scope.row.id)">编辑</el-button>
+            @click="redirectUrl('{{url('/activity')}}'+'/'+scope.row.id+'/edit')">编辑</el-button>
             <el-button
                     size="small"
                     type="danger"
