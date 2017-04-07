@@ -59,7 +59,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['data'] = Role::whereId($id)->first();
+        return $this->response($data);
     }
 
     /**

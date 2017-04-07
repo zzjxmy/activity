@@ -73,7 +73,7 @@ class Activity extends Model
     }
 
     //with static_tmp
-    public function static_tmp(){
+    public function staticTmp(){
         return $this->hasOne(StaticTmp::class,'id','static_tmp_id');
     }
 
