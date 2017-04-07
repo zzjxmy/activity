@@ -5,19 +5,32 @@
         <template scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
                 <el-form-item label="订单金额">
-                    <span>@{{ props.row.activity_name }}</span>
+                    <span>@{{ props.row.vote.order_vote }}元</span>
                 </el-form-item>
                 <el-form-item label="活动打赏金额">
-                    <span>@{{ props.row.activity_name }}</span>
+                    <span>@{{ props.row.vote.activity_vote }}元</span>
                 </el-form-item>
                 <el-form-item label="直播间打赏金额">
-                    <span>@{{ props.row.activity_name }}</span>
+                    <span>@{{ props.row.vote.live_vote }}元</span>
                 </el-form-item>
-                <el-form-item label="组件">
-                    <span>@{{ props.row.activity_name }}</span>
+            </el-form>
+            <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="订单数量">
+                    <span>@{{ props.row.vote.order_num }}个</span>
                 </el-form-item>
-                <el-form-item label="字段">
-                    <span>@{{ props.row.activity_name }}</span>
+                <el-form-item label="活动打赏数量">
+                    <span>@{{ props.row.vote.activity_num }}个</span>
+                </el-form-item>
+                <el-form-item label="直播间打赏数量">
+                    <span>@{{ props.row.vote.live_num }}个</span>
+                </el-form-item>
+                <el-form-item label="点赞数">
+                    <span>@{{ props.row.vote.praise_num }}个</span>
+                </el-form-item>
+            </el-form>
+            <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="优惠券码" style="width: 100%">
+                    <span>@{{ props.row.coupon?props.row.coupon.replace(/,/g, '&nbsp;&nbsp;|&nbsp;&nbsp;'):'暂无' }}</span>
                 </el-form-item>
             </el-form>
         </template>
@@ -28,7 +41,7 @@
     </el-table-column>
     <el-table-column
             label="活动名称"
-            prop="activity_name" width="300">
+            prop="activity_name" width="250">
     </el-table-column>
     <el-table-column
             label="活动类型"
@@ -69,8 +82,12 @@
             @{{(new Date(scope.row.create_time * 1000)).Format('yyyy-MM-dd hh:mm:ss')}}
         </template>
     </el-table-column>
-    <el-table-column label="操作">
+    <el-table-column label="操作" width="200">
         <template scope="scope">
+            <el-button
+            size="small"
+            type="info"
+            @click="handleEdit(scope.$index,scope.row.id)">查看</el-button>
             <el-button
                     size="small"
             @click="handleEdit(scope.$index,scope.row.id)">编辑</el-button>

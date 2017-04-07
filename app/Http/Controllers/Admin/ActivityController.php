@@ -24,6 +24,35 @@ class ActivityController extends Controller
             $newData = $data->toArray();
             foreach ($data as $key => $val){
                 $newData['data'][$key]['activity_name'] = $val->static_tmp->site_name;
+                //count vote
+                $vote = [
+                    'activity_vote' => 0 , 'live_vote' => 0, 'order_vote' => 0 , 'dongtai_vote' => 0,
+                    'praise_num' => 0 , 'order_num' => 0, 'live_num' => 0, 'activity_num' => 0,'dongtai_num' => 0
+                ];
+                foreach ($val->vote as $v){
+                    switch ($v->type){
+                        case 1: //活动页投票
+                            $vote['activity_vote'] += $v->money;
+                            $vote['activity_num'] ++;
+                            break;
+                        case 2: //直播间打赏
+                            $vote['live_vote'] += $v->money;
+                            $vote['live_num'] ++;
+                            break;
+                        case 3: //下单
+                            $vote['order_vote'] += $v->money;
+                            $vote['order_num'] ++;
+                            break;
+                        case 4: //点赞
+                            $vote['praise_num'] += $v->money;
+                            break;
+                        case 5: //动态打赏
+                            $vote['dongtai_vote'] += $v->money;
+                            $vote['dongtai_num'] ++;
+                            break;
+                    }
+                }
+                $newData['data'][$key]['vote'] = $vote;
             }
             return $this->response($newData);
         }
