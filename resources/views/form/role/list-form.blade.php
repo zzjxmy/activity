@@ -6,6 +6,11 @@
         <el-form-item>
             <el-button type="primary" @click="onSubmit()">查询</el-button>
         </el-form-item>
+        <el-form-item style="float: right;">
+            <el-button-group>
+                <el-button type="success" @click="showAddDialog()">添加角色</el-button>
+            </el-button-group>
+        </el-form-item>
     </el-form>
 </script>
 <script>
@@ -13,13 +18,18 @@
         template:'#tableSearch',
         data:function () {
             return {
-                formSearch:{}
+                formSearch:{},
             }
         },
         methods: {
             onSubmit: function () {
                 this.$emit('submit',this.formSearch);
-            }
+            },
+            //添加
+            showAddDialog:function(){
+                console.log(111);
+                this.dialogFormVisible = true;
+            },
         }
     })
 </script>

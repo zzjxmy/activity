@@ -15,7 +15,7 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::group(['namespace' => 'Admin','middleware' => []],function(){
+Route::group(['namespace' => 'Admin','middleware' => ['auth']],function(){
     Route::resource('activity','ActivityController');
     Route::get('/', 'IndexController@index');
 
