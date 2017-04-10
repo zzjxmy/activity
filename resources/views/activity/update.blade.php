@@ -12,7 +12,8 @@
                         内容填写
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" method="post" action="{{url('activity')}}">
+                        <form class="form-horizontal" method="post" action="{{url('/activity',[$info['id']])}}" id="activityForm">
+                            {{ method_field('PUT') }}
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">选择活动</label>

@@ -3,10 +3,10 @@
     <div class="col-sm-10">
         <div class="row">
             <div class="col-md-2">
-                <input type="text" class="form-control" name="name[]" value="" placeholder="中文名称" required>
+                <input type="text" class="form-control" name="name[]" value="" placeholder="中文名称">
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" name="field[]" value="" placeholder="字段名称（纯字母）,最多32个字符" required>
+                <input type="text" class="form-control" name="field[]" value="" placeholder="字段名称（纯字母）,最多32个字符">
             </div>
             <div class="col-md-2">
                 <select name="type[]" class="form-control m-b">

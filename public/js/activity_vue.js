@@ -29,7 +29,32 @@ new Vue({
                 self.loading = false;
             });
         },
-        onSubmit: function (formData) {
+        //表单提交
+        onSubmit: function (formId,url,successUrl) {
+            var self = this;
+            self.loading = true;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $('#'+formId).serialize(),
+                success: function( res ) {
+                    self.loading = false;
+                    if (res.status === 200) {
+                        self.$message.success(res.message);
+                        setTimeout(function () {
+                            if(successUrl && successUrl != ''){
+                                self.redirectUrl(successUrl);
+                            }else{
+                                window.location.reload();
+                            }
+                        },1500);
+                    } else {
+                        self.$message.error(res.message);
+                    }
+                }
+            });
+        },
+        onSearch: function (formData) {
             this.formData = Object.assign(this.formData, formData);
             if (this.formData.page == 1) this.loadData();
             this.formData.page = 1;
@@ -74,7 +99,6 @@ new Vue({
                 success: function( res ) {
                     self.fullscreenLoading = false;
                     if (res.status === 200) {
-                        console.log(res.data);
                         self.$message.success(res.message);
                         self.dialogFormVisible = false;
                         Vue.set(self.tableData, self.curIndex, res.data);

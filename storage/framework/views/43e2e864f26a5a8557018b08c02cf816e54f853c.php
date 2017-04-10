@@ -2,18 +2,16 @@
 <!-- content -->
 <div id="content" class="app-content" role="main">
     <div class="app-content-body ">
-
-
         <div class="bg-light lter b-b wrapper-md">
             <h1 class="m-n font-thin h3">活动新增</h1>
         </div>
-        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+        <div class="wrapper-md" ng-controller="FormDemoCtrl" v-loading.body="loading" element-loading-text="正在提交，请稍后">
             <div class="panel panel-default">
                 <div class="panel-heading font-bold">
                     内容填写
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="post" action="<?php echo e(url('activity')); ?>">
+                    <form class="form-horizontal" method="post" action="<?php echo e(url('activity')); ?>" id="ActivityForm">
                         <?php echo csrf_field(); ?>
 
                         <div class="form-group">
@@ -40,7 +38,7 @@
                             <label class="col-sm-2 control-label">活动时间</label>
                             <div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
                                 <div class="input-group w-md">
-                                    <input name="activityTime" id="from_date" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="活动开放时间" required>
+                                    <input name="activityTime" id="from_date" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="活动开放时间">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" onclick="$('#from_date').click()">
                                             <i class="glyphicon glyphicon-calendar"></i>

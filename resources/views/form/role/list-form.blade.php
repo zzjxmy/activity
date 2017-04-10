@@ -4,7 +4,7 @@
             <el-input v-model="formSearch.name" placeholder="角色名称"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="onSubmit()">查询</el-button>
+            <el-button type="primary" @click="onSearch()">查询</el-button>
         </el-form-item>
     </el-form>
 </script>
@@ -17,7 +17,7 @@
             }
         },
         methods: {
-            onSubmit: function () {
+            onSearch: function () {
                 this.$emit('submit',this.formSearch);
             }
         }

@@ -31,7 +31,7 @@
             </el-date-picker>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="onSubmit()">查询</el-button>
+            <el-button type="primary" @click="onSearch()">查询</el-button>
         </el-form-item>
     </el-form>
 </script>
@@ -50,7 +50,7 @@
             }
         },
         methods: {
-            onSubmit: function () {
+            onSearch: function () {
                 var data = Object.assign({},this.formSearch);
                 if(data.create_time) {
                     data.create_time = data.create_time.map(function (v) {
