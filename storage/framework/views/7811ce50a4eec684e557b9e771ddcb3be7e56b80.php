@@ -45,5 +45,8 @@
 <script src="<?php echo e(asset('js/ui-client.js')); ?>"></script>
 <script src="<?php echo e(asset('js/activity.js')); ?>"></script>
 <script src="<?php echo e(asset('js/activity_vue.js')); ?>"></script>
+<script src="<?php echo e(asset('libs/jquery/moment/moment.js')); ?>"></script>
+<script src="<?php echo e(asset('libs/jquery/bootstrap-daterangepicker/daterangepicker.js')); ?>"></script>
+<?php echo $__env->yieldContent('script'); ?>
 </body>
 </html>

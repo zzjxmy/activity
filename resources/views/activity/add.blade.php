@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         @include('module.module')
-                        @include('module.attr-module')
+                        @include('module.attr-module',['fields' => []])
                     </form>
                 </div>
             </div>

@@ -33,6 +33,13 @@
                     <span>{{ props.row.coupon?props.row.coupon.replace(/,/g, '&nbsp;&nbsp;|&nbsp;&nbsp;'):'暂无' }}</span>
                 </el-form-item>
             </el-form>
+            <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="已配组件" style="width: 100%">
+                    <span v-for="item in props.row.modules" style="padding-right: 7px;">
+                        {{ {activityCheck:'活动页投票组件',dongtaiCheck:'动态打赏组件',likeCheck:'点赞组件',liveCheck:'直播间打赏组件',orderCheck:'订单组件'}[item.name] }}
+                    </span>
+                </el-form-item>
+            </el-form>
         </template>
     </el-table-column>
     <el-table-column

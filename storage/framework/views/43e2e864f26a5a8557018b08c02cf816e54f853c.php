@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <?php echo $__env->make('module.module', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                        <?php echo $__env->make('module.attr-module', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                        <?php echo $__env->make('module.attr-module',['fields' => []], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     </form>
                 </div>
             </div>

@@ -32,11 +32,13 @@ class ActivityController extends Controller
                     $query->where('create_time', '>=', strtotime($data['create_time'][0]));
                     $query->where('create_time', '<=', strtotime($data['create_time'][1] . ' 23:59:59'));
                 }
-            })->with(['static_tmp' => function ($query) {
+            })->with(['modules' => function($query){
+                $query->select('activity_id','name');
+            },'static_tmp' => function ($query) {
                 $query->select(['id', 'site_name']);
             }, 'vote' => function ($query) {
                 $query->select(['activity_id', 'type', 'money']);
-            }])->paginate(intval($request->input('pageSize', 15)))->toArray();
+            }])->orderBy('id','desc')->paginate(intval($request->input('pageSize', 15)))->toArray();
             foreach ($data['data'] as $key => $val) {
                 //count vote
                 $vote = [
@@ -82,8 +84,12 @@ class ActivityController extends Controller
     {
         //获取所有的活动 排除已经添加的
         $activity = Activity::get(['static_tmp_id'])->toArray();
-        $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))->get(['id','site_name'])->toArray();
-        return view('activity.add',['activity' => $activity,'is_ajax' => false]);
+        $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))
+            ->orderBy('create_date','desc')
+            ->get(['id','site_name'])
+            ->toArray();
+        $is_ajax = false;
+        return view('activity.add',compact('activity','is_ajax'));
     }
 
     /**
@@ -156,9 +162,19 @@ class ActivityController extends Controller
     public function edit($id)
     {
         //获取所有的活动 排除已经添加的
+        $info = Activity::where('id',$id)->first();
+        $is_ajax = false;
+        if(!$info)abort(404);
         $activity = Activity::where('id','<>',$id)->get(['static_tmp_id'])->toArray();
-        $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))->get(['id','site_name'])->toArray();
-        return view('activity.update',['activity' => $activity,'is_ajax' => false]);
+        $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))
+            ->orderBy('create_date','desc')
+            ->get(['id','site_name']);
+        //获取所有的组件
+        $modules = Modules::where('activity_id',$id)->get()->toArray();
+        $modulesName = json_encode(array_column($modules,'name'));
+        //获取所有的自定义字段
+        $fields = ActivityFieldInfo::where('activity_id',$id)->get();
+        return view('activity.update',compact('activity','modules','is_ajax','info','fields','modulesName'));
     }
 
     /**

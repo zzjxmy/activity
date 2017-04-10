@@ -1,6 +1,6 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">组件选择</label>
-    <div class="col-sm-10">
+    <div class="col-sm-10" id="module_check">
         <div class="checkbox module">
             <label class="i-checks pr-sm">
                 <input type="checkbox" name="likeCheck" value="like" module-name="like-module">

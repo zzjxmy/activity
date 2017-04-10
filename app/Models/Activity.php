@@ -81,4 +81,9 @@ class Activity extends Model
     public function vote(){
         return $this->hasMany(Vote::class,'activity_id','id');
     }
+
+    //with count modules
+    public function modules(){
+        return $this->hasMany(Modules::class,'activity_id','id');
+    }
 }
