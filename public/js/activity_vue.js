@@ -30,7 +30,7 @@ new Vue({
             });
         },
         //表单提交
-        onSubmit: function (formId,url,successUrl) {
+        onSearch: function (formId,url,successUrl) {
             var self = this;
             self.loading = true;
             $.ajax({
@@ -54,7 +54,7 @@ new Vue({
                 }
             });
         },
-        onSearch: function (formData) {
+        onSubmit: function (formData) {
             this.formData = Object.assign(this.formData, formData);
             if (this.formData.page == 1) this.loadData();
             this.formData.page = 1;
