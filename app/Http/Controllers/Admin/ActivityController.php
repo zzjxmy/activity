@@ -156,6 +156,7 @@ class ActivityController extends Controller
         $is_ajax = false;
         $ajax_url = url('/activity',[$id]);
         $redirect_url = url('/activity');
+        $add = false;
         if(!$info)abort(404);
         $activity = Activity::where('id','<>',$id)->get(['static_tmp_id'])->toArray();
         $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))
@@ -166,7 +167,7 @@ class ActivityController extends Controller
         $modulesName = json_encode(array_column($modules,'name'));
         //获取所有的自定义字段
         $fields = ActivityFieldInfo::where('activity_id',$id)->get();
-        return view('activity.update',compact('activity','modules','is_ajax','info','fields','modulesName','ajax_url','redirect_url'));
+        return view('activity.update',compact('activity','modules','is_ajax','info','fields','modulesName','ajax_url','redirect_url','add'));
     }
 
     /**
@@ -189,33 +190,34 @@ class ActivityController extends Controller
             if (Activity::where('id','<>',$id)
                 ->where(['static_tmp_id' => $data['info']['static_tmp_id']])->count()) return $this->response([], 0, '活动已经存在');
             $info = $info->toArray();
-            //表创建 有换活动
-            if($id != $info['id']){
-                makeTable($data['addInfo'], $data['info']['table_name']);
-            }else{
-                //进行表修改 比对原表字段信息
-                updateTable($this->comparisonTableFields($data['addInfo'],$info['fields'],$request),$data['info']['table_name']);
-            }
+//            //表创建 有换活动
+//            if($id != $info['id']){
+//                makeTable($data['addFieldInfo'], $data['info']['table_name']);
+//            }else{
+//                //进行表修改 比对原表字段信息
+//                $fieldInfo = $this->comparisonTableFields($data['addFieldInfo'],$data['oldFieldInfo'],$info['fields'],$request);
+//                updateTable($fieldInfo,$data['info']['table_name']);
+//            }
             //数据插入
             \DB::transaction(function () use ($data,$info,$id) {
                 //活动数据新增
-                $result = Activity::create($data['info']);
+                $info::save($data['info']);
                 //组件数据新增
-                array_walk($data['module'], function ($value, $key) use ($result) {
+                array_walk($data['module'], function ($value, $key) use ($id) {
                     $value['name'] = $key;
-                    $value['activity_id'] = $result->id;
+                    $value['activity_id'] = $id;
                     Modules::create($value);
                 }, []);
                 //表字段值新增
-                array_walk($data['addInfo'], function ($value, $key) use ($result) {
-                    $value['activity_id'] = $result->id;
-                    ActivityFieldInfo::create($value);
-                }, []);
-                if($id != $info['id'])dropTableIfExists($info['table_name']);
+//                array_walk($data['addInfo'], function ($value, $key) use ($id) {
+//                    $value['activity_id'] = $id;
+//                    ActivityFieldInfo::create($value);
+//                }, []);
+//                if($id != $info['id'])dropTableIfExists($info['table_name']);
             });
             return $this->response([], 200);
         } catch (\Exception $exception) {
-            if($id != $info['id'])dropTableIfExists($activityId);
+//            if($id != $info['id'])dropTableIfExists($activityId);
             return $this->response([], 0, $exception->getMessage());
         }
     }
@@ -243,8 +245,15 @@ class ActivityController extends Controller
         $info['site_name'] = $staticTmp->site_name;
         //整合数据
         $module = $this->checkModule($request);
-        $addInfo = $this->checkInfo($request);
-        return compact('info','module','addInfo');
+        $addFieldInfo = $this->checkInfo($request->only([
+            'name', 'field', 'type', 'explode', 'is_explode',
+            'length', 'default', 'unique', 'required', 'order_by', 'search'
+        ]));
+        $oldFieldInfo = $this->checkInfo($request->only([
+            'old_name', 'old_field', 'old_type', 'old_explode', 'old_is_explode',
+            'old_length', 'old_default', 'old_unique', 'old_required', 'old_order_by', 'old_search'
+        ]),true);
+        return compact('info','module','addFieldInfo','oldFieldInfo');
     }
 
     /**
@@ -293,24 +302,22 @@ class ActivityController extends Controller
 
     /**
      * 分析新增信息
-     * @param Request $request
+     * @param array $attributes
+     * @param boolean $old
      * @return array
      * @throws \Exception
      */
-    private function checkInfo(Request $request)
+    private function checkInfo($attributes,$old = false)
     {
-        $attributes = $request->only([
-            'name', 'field', 'type', 'explode', 'is_explode',
-            'length', 'default', 'unique', 'required', 'order_by', 'search'
-        ]);
         $filed = [];
-
-        $countField = count($attributes['field']);
-        if ($countField != count(array_unique($attributes['field'] ?: []))) {
+        $str = $old?'old_':'';
+        $countField = count($attributes[$str.'field']);
+        if ($countField != count(array_unique($attributes[$str.'field'] ?: []))) {
             throw new \Exception('请勿使用相同的字段名');
         }
         foreach ($attributes as $key => $value) {
             if (count($attributes[$key]) != $countField) throw new \Exception('无效字段');
+            $key = $old?substr($key,4):$key;
             for ($i = 0; $i < count($value); $i++) {
                 if(in_array($key,['name','field']) && empty($value[$i])){
                     throw new \Exception('自定义内容中文名称和字段名称必填');
@@ -330,21 +337,28 @@ class ActivityController extends Controller
 
     /**
      * 比对表字段信息
-     * @param $formFields array 表单提交的字段信息
-     * @param $oldFields array 原有表信息
+     * @param $addFields array 新增的字段信息
+     * @param $oldFields array 原有form表单提交信息
+     * @param $fieldsData array 原有表信息
      * @param $request Request 提交信息
      * @return array
+     * @throws \Exception 异常信息
      */
-    private function comparisonTableFields($formFields,$oldFields,Request $request){
+    private function comparisonTableFields($addFields,$oldFields,$fieldsData,Request $request){
         $fields = ['update' => [],'delete' => [],'add' => []];
+        $fields['delete'] = $oldFieldsName = array_column($fieldsData,'field','id');
+        $deleteFields = array_diff(array_column($fieldsData,'id'),$request->input('addInfoIds')?:[]);
+        if(count(array_intersect(array_column($addFields,'field'),array_column($oldFields,'field')))){
+            throw new \Exception('请勿使用相同的字段名');
+        }
         //待删除
-        $fields['delete'] = array_column($oldFields,'name','id');
-        $deleteFields = array_diff(array_column($oldFields,'id'),$request->input('addInfoIds'));
         foreach ($deleteFields as $value){
             unset($fields['delete'][$value]);
         }
+        //待修改
+        $fields['update'] = $oldFields;
         //待新增
-
-        dd($formFields);
+        $fields['add'] = $addFields;
+        return $fields;
     }
 }
