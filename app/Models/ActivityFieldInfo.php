@@ -21,5 +21,8 @@ class ActivityFieldInfo extends Model
         self::creating(function(){
             $this->create_time = time();
         });
+        self::updating(function(){
+            $this->update_time = time();
+        });
     }
 }

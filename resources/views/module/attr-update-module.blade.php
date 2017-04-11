@@ -7,7 +7,7 @@
             <input type="text" class="form-control" name="name[]" value="{{$value['name']}}" placeholder="中文名称">
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control" name="field[]" value="{{$value['field']}}" placeholder="字段名称（纯字母）,最多32个字符">
+            <input type="text" class="form-control" name="field[]" value="{{$value['field']}}" placeholder="字段名称（纯字母）,最多32个字符" readonly>
         </div>
         <div class="col-md-2">
             <select name="type[]" class="form-control m-b">
@@ -30,7 +30,7 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <input type="number" class="form-control" name="length[]" value="{{$value['length']}}" placeholder="长度，默认255">
+            <input type="number" class="form-control" name="length[]" value="{{$value['length']}}" placeholder="长度，默认255" readonly>
         </div>
         <div class="col-md-2">
             <input type="text" class="form-control" name="default[]" value="{{$value['default']}}" placeholder="默认值，可为空">
@@ -58,11 +58,6 @@
                 <option value="0" @if($value['required'] == 0) selected @endif>非必填</option>
                 <option value="1" @if($value['required'] == 1) selected @endif>必填</option>
             </select>
-        </div>
-    </div>
-    <div class="row m-b">
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-sm btn-danger activity_delete_attr" onclick="return false">删除</button>
         </div>
     </div>
 </div>

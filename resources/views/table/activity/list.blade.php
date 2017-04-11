@@ -101,7 +101,7 @@
             <el-button
                     size="small"
                     type="danger"
-            @click="deleteConfirm(scope.$index,scope.row,'111')">删除</el-button>
+            @click="deleteConfirm(scope.$index,scope.row,'{{url('/activity')}}/'+scope.row.id)">删除</el-button>
         </template>
     </el-table-column>
 </el-table>

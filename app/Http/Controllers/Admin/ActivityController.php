@@ -107,7 +107,7 @@ class ActivityController extends Controller
             //检查活动是否已经存在
             if (Activity::where(['static_tmp_id' => $data['info']['static_tmp_id']])->count()) return $this->response([], 0, '活动已经存在');
             //表创建
-            makeTable($data['addInfo'], $data['info']['table_name']);
+            makeTable($data['addFieldInfo'], $data['info']['table_name']);
             //数据插入
             \DB::transaction(function () use ($data) {
                 //活动数据新增
@@ -119,7 +119,7 @@ class ActivityController extends Controller
                     Modules::create($value);
                 }, []);
                 //表字段值新增
-                array_walk($data['addInfo'], function ($value, $key) use ($result) {
+                array_walk($data['addFieldInfo'], function ($value, $key) use ($result) {
                     $value['activity_id'] = $result->id;
                     ActivityFieldInfo::create($value);
                 }, []);
@@ -152,21 +152,20 @@ class ActivityController extends Controller
     public function edit($id)
     {
         //获取所有的活动 排除已经添加的
-        $info = Activity::where('id',$id)->first();
+        $info = Activity::where('id',$id)->with(['static_tmp' => function($query){
+            $query->select(['id','site_name']);
+        }])->first();
         $is_ajax = false;
         $ajax_url = url('/activity',[$id]);
         $redirect_url = url('/activity');
+        $add = false;
         if(!$info)abort(404);
-        $activity = Activity::where('id','<>',$id)->get(['static_tmp_id'])->toArray();
-        $activity = StaticTmp::whereNotIn('id',array_column($activity,'static_tmp_id'))
-            ->orderBy('create_date','desc')
-            ->get(['id','site_name']);
         //获取所有的组件
         $modules = Modules::where('activity_id',$id)->get()->toArray();
         $modulesName = json_encode(array_column($modules,'name'));
         //获取所有的自定义字段
         $fields = ActivityFieldInfo::where('activity_id',$id)->get();
-        return view('activity.update',compact('activity','modules','is_ajax','info','fields','modulesName','ajax_url','redirect_url'));
+        return view('activity.update',compact('modules','is_ajax','info','fields','modulesName','ajax_url','redirect_url','add'));
     }
 
     /**
@@ -178,44 +177,41 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $activityId = $request->input('activityId');
-        $info = [];
         try {
-            //获取当前活动信息
-            $info = Activity::where('id',$id)->with(['modules','fields'])->first();
+            $info = Activity::where('id',$id)->first();
             if(!$info)throw new \Exception('无效活动');
             $data = $this->checkAndGetInfo($request);
-            //检查活动是否已经存在
-            if (Activity::where('id','<>',$id)
-                ->where(['static_tmp_id' => $data['info']['static_tmp_id']])->count()) return $this->response([], 0, '活动已经存在');
-            $info = $info->toArray();
-            //表创建 有换活动
-            if($id != $info['id']){
-                makeTable($data['addInfo'], $data['info']['table_name']);
-            }else{
-                //进行表修改 比对原表字段信息
-                updateTable($this->comparisonTableFields($data['addInfo'],$info['fields'],$request),$data['info']['table_name']);
-            }
+            //获取现有组件
+            $modules = $this->updateModules($id,$request);
             //数据插入
-            \DB::transaction(function () use ($data,$info,$id) {
+            \DB::transaction(function () use ($data,$id,$modules) {
+                unset($data['table_name']);
+                $data['info']['update_time'] = $time = time();
                 //活动数据新增
-                $result = Activity::create($data['info']);
+                Activity::where('id',$id)->update($data['info']);
                 //组件数据新增
-                array_walk($data['module'], function ($value, $key) use ($result) {
+                array_walk($modules['add'], function ($value, $key) use ($id) {
                     $value['name'] = $key;
-                    $value['activity_id'] = $result->id;
+                    $value['activity_id'] = $id;
                     Modules::create($value);
                 }, []);
-                //表字段值新增
-                array_walk($data['addInfo'], function ($value, $key) use ($result) {
-                    $value['activity_id'] = $result->id;
-                    ActivityFieldInfo::create($value);
+                //组件数据修改
+                array_walk($modules['update'], function ($value, $key) use ($id,$time) {
+                    $value['update_time'] = $time;
+                    Modules::where(['activity_id'=>$id,'name'=>$key])->update($value);
                 }, []);
-                if($id != $info['id'])dropTableIfExists($info['table_name']);
+                //组件数据删除
+                if($modules['delete'])Modules::whereIn('id',array_keys($modules['delete']))->delete();
+                //字段信息修改
+                array_walk($data['addFieldInfo'], function ($value, $key) use ($id,$time) {
+                    $field = $value['field'];
+                    unset($value['field']);
+                    $value['update_time'] = $time;
+                    ActivityFieldInfo::where(['activity_id'=>$id,'field'=> $field])->update($value);
+                }, []);
             });
-            return $this->response([], 200);
+            return $this->response([], 200,'修改成功');
         } catch (\Exception $exception) {
-            if($id != $info['id'])dropTableIfExists($activityId);
             return $this->response([], 0, $exception->getMessage());
         }
     }
@@ -224,11 +220,22 @@ class ActivityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response | \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        try{
+            $info = Activity::where('id',$id)->first();
+            if(!$info)throw new \Exception('活动不存在');
+            \DB::transaction(function() use($info,$id){
+                $info->delete();
+                dropTableIfExists($info->table_name);
+            });
+            return $this->response([],200,'活动删除成功');
+        }catch (\Exception $exception){
+            return $this->response([],0,'活动删除失败');
+        }
+
     }
 
     private function checkAndGetInfo(Request $request){
@@ -243,8 +250,11 @@ class ActivityController extends Controller
         $info['site_name'] = $staticTmp->site_name;
         //整合数据
         $module = $this->checkModule($request);
-        $addInfo = $this->checkInfo($request);
-        return compact('info','module','addInfo');
+        $addFieldInfo = $this->checkInfo($request->only([
+            'name', 'field', 'type', 'explode', 'is_explode',
+            'length', 'default', 'unique', 'required', 'order_by', 'search'
+        ]));
+        return compact('info','module','addFieldInfo');
     }
 
     /**
@@ -293,18 +303,13 @@ class ActivityController extends Controller
 
     /**
      * 分析新增信息
-     * @param Request $request
+     * @param array $attributes
      * @return array
      * @throws \Exception
      */
-    private function checkInfo(Request $request)
+    private function checkInfo($attributes)
     {
-        $attributes = $request->only([
-            'name', 'field', 'type', 'explode', 'is_explode',
-            'length', 'default', 'unique', 'required', 'order_by', 'search'
-        ]);
         $filed = [];
-
         $countField = count($attributes['field']);
         if ($countField != count(array_unique($attributes['field'] ?: []))) {
             throw new \Exception('请勿使用相同的字段名');
@@ -328,23 +333,16 @@ class ActivityController extends Controller
         return $filed;
     }
 
-    /**
-     * 比对表字段信息
-     * @param $formFields array 表单提交的字段信息
-     * @param $oldFields array 原有表信息
-     * @param $request Request 提交信息
-     * @return array
-     */
-    private function comparisonTableFields($formFields,$oldFields,Request $request){
-        $fields = ['update' => [],'delete' => [],'add' => []];
-        //待删除
-        $fields['delete'] = array_column($oldFields,'name','id');
-        $deleteFields = array_diff(array_column($oldFields,'id'),$request->input('addInfoIds'));
-        foreach ($deleteFields as $value){
-            unset($fields['delete'][$value]);
+    private function updateModules($id,$request){
+        $modules = $this->checkModule($request);
+        $haveModules = Modules::where('activity_id',$id)->get()->toArray();
+        $name = array_column($haveModules,'name','id');
+        $formName = array_keys($modules);
+        $add = [];
+        foreach (array_diff($formName,$name) as $value){
+            $add[$value] = $modules[$value];
+            unset($modules[$value]);
         }
-        //待新增
-
-        dd($formFields);
+        return ['add' => $add , 'update' => $modules ,'delete' => array_diff($name,$formName)];
     }
 }
