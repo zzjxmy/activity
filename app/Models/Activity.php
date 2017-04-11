@@ -14,7 +14,7 @@ class Activity extends Model
 {
     protected $table = 'activity';
     public $timestamps = false;
-//    public $guarded = ['id'];
+    public $guarded = ['id'];
 
     public function __construct(array $attributes = [])
     {
@@ -73,12 +73,22 @@ class Activity extends Model
     }
 
     //with static_tmp
-    public function staticTmp(){
+    public function static_tmp(){
         return $this->hasOne(StaticTmp::class,'id','static_tmp_id');
     }
 
     //with count vote
     public function vote(){
         return $this->hasMany(Vote::class,'activity_id','id');
+    }
+
+    //with count modules
+    public function modules(){
+        return $this->hasMany(Modules::class,'activity_id','id');
+    }
+
+    //with count fields
+    public function fields(){
+        return $this->hasMany(ActivityFieldInfo::class,'activity_id','id');
     }
 }

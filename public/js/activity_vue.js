@@ -30,6 +30,31 @@ new Vue({
                 self.loading = false;
             });
         },
+        //表单提交
+        onSearch: function (formId,url,successUrl) {
+            var self = this;
+            self.loading = true;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $('#'+formId).serialize(),
+                success: function( res ) {
+                    self.loading = false;
+                    if (res.status === 200) {
+                        self.$message.success(res.message);
+                        setTimeout(function () {
+                            if(successUrl && successUrl != ''){
+                                self.redirectUrl(successUrl);
+                            }else{
+                                window.location.reload();
+                            }
+                        },1500);
+                    } else {
+                        self.$message.error(res.message);
+                    }
+                }
+            });
+        },
         onSubmit: function (formData) {
             this.formData = Object.assign(this.formData, formData);
             if (this.formData.page == 1) this.loadData();
@@ -66,8 +91,11 @@ new Vue({
             }
         },
 
-        //编辑或添加后保存
-        editSave: function (url) {
+        redirectUrl: function (url){
+            window.location.href = url;
+        },
+            //编辑或添加后保存
+        editSave:function(url){
             var self = this;
             self.fullscreenLoading = true;
             $.ajax({
@@ -77,7 +105,6 @@ new Vue({
                 success: function (res) {
                     self.fullscreenLoading = false;
                     if (res.status === 200) {
-                        console.log(res.data);
                         self.$message.success(res.message);
                         self.dialogFormVisible = false;
                         Vue.set(self.tableData, self.curIndex, res.data);
@@ -124,6 +151,6 @@ new Vue({
         }
     },
     created: function () {
-        this.loadData();
+        is_ajax=='1'?this.loadData():'';
     }
 });

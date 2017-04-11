@@ -19,12 +19,20 @@ $(function(){
                 break;
         }
     });
-
+    $(".activity_delete_attr").on('click',function(){
+        var parent = $(this).parent().parent().parent();
+        if(!parent.parent().hasClass('attr-parent')){
+            parent.next().remove();
+            parent.prev().remove();
+            parent.remove();
+        }
+    });
     $("#add_attr").click(function(){
         $("#activity_attr").append($("#activity_add_attr").html());
         $(".activity_delete_attr").on('click',function(){
             var parent = $(this).parent().parent().parent();
             if(!parent.parent().hasClass('attr-parent')){
+                parent.next().remove();
                 parent.prev().remove();
                 parent.remove();
             }
@@ -70,4 +78,14 @@ Date.prototype.Format = function (fmt) { //author: meizz
     for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
+};
+
+Array.prototype.contains = function (obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
 };

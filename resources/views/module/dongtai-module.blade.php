@@ -1,9 +1,9 @@
 <div class="line line-dashed b-b line-lg pull-in dongtai-module hidden"></div>
 <div class="form-group dongtai-module hidden">
     <label class="col-sm-2 control-label">动态打赏组件配置</label>
-    <div class="col-sm-10">
+    <div class="col-sm-10" id="dongtai-module-input">
         <div class="input-group w-md m-b">
-            <input name="dongtai[time]" value="" type="text" id="from_date_order" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="组件时间，默认取活动时间">
+            <input name="dongtai[time]" value="" type="text" id="from_date_dongtai" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="组件时间，默认取活动时间">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" onclick="$('#from_date_order').click()"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>

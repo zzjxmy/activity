@@ -3,10 +3,10 @@
     <div class="col-sm-10">
         <div class="row">
             <div class="col-md-2">
-                <input type="text" class="form-control" name="name[]" value="" placeholder="中文名称" required>
+                <input type="text" class="form-control" name="name[]" value="" placeholder="中文名称">
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" name="field[]" value="" placeholder="字段名称（纯字母）,最多32个字符" required>
+                <input type="text" class="form-control" name="field[]" value="" placeholder="字段名称（纯字母）,最多32个字符">
             </div>
             <div class="col-md-2">
                 <select name="type[]" class="form-control m-b">
@@ -42,14 +42,14 @@
             </div>
             <div class="col-md-2">
                 <select name="search[]" class="form-control m-b">
-                    <option value="0">不作为搜索字段</option>
-                    <option value="1">作为搜索字段</option>
+                    <option value="0">非搜索字段</option>
+                    <option value="1">搜索字段</option>
                 </select>
             </div>
             <div class="col-md-2">
                 <select name="order_by[]" class="form-control m-b">
-                    <option value="0">不作为排序字段</option>
-                    <option value="1">作为排序字段</option>
+                    <option value="0">非排序字段</option>
+                    <option value="1">排序字段</option>
                 </select>
             </div>
             <div class="col-md-2">
@@ -65,4 +65,5 @@
             </div>
         </div>
     </div>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
 </div>
