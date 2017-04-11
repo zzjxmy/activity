@@ -6,13 +6,13 @@
             <div class="bg-light lter b-b wrapper-md">
                 <h1 class="m-n font-thin h3"><a href="{{url('/activity')}}">活动列表</a>/活动编辑</h1>
             </div>
-            <div class="wrapper-md" ng-controller="FormDemoCtrl">
+            <div class="wrapper-md" ng-controller="FormDemoCtrl"  v-loading.body="loading" element-loading-text="正在提交，请稍后">
                 <div class="panel panel-default">
                     <div class="panel-heading font-bold">
                         内容填写
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" method="post" action="{{url('/activity',[$info['id']])}}" id="activityForm">
+                        <form class="form-horizontal" method="post" action="{{url('/activity',[$info['id']])}}" id="ActivityForm">
                             {{ method_field('PUT') }}
                             {!! csrf_field() !!}
                             <div class="form-group">

@@ -210,7 +210,7 @@ class ActivityController extends Controller
                     ActivityFieldInfo::where(['activity_id'=>$id,'field'=> $field])->update($value);
                 }, []);
             });
-            return $this->response([], 200);
+            return $this->response([], 200,'修改成功');
         } catch (\Exception $exception) {
             return $this->response([], 0, $exception->getMessage());
         }
