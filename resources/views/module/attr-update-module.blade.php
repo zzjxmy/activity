@@ -4,7 +4,7 @@
     <div class="row">
         <input type="hidden" name="addInfoIds[]" value="{{$value['id']}}">
         <div class="col-md-2">
-            <input type="text" class="form-control" name="old_name[]" value="{{$value['name']}}" placeholder="中文名称" readonly>
+            <input type="text" class="form-control" name="old_name[]" value="{{$value['name']}}" placeholder="中文名称">
         </div>
         <div class="col-md-2">
             <input type="text" class="form-control" name="old_field[]" value="{{$value['field']}}" placeholder="字段名称（纯字母）,最多32个字符" readonly>

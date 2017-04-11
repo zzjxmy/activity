@@ -22,6 +22,9 @@ class Activity extends Model
         self::creating(function(){
             $this->create_time = time();
         });
+        self::updating(function(){
+            $this->update_time = time();
+        });
     }
 
     public static function verify(Request $request){

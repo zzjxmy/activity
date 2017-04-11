@@ -126,7 +126,9 @@ new Vue({
                         if (res.status === 200) {
                             self.$message.success(res.message);
                             self.tableData.splice(index, 1);
-                            //this.loadData();
+                            setTimeout(function () {
+                                self.loadData();
+                            },1500);
                         } else {
                             self.$message.error(res.message);
                         }

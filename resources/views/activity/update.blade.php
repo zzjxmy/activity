@@ -16,15 +16,10 @@
                             {{ method_field('PUT') }}
                             {!! csrf_field() !!}
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">选择活动</label>
+                                <label class="col-sm-2 control-label">活动名称</label>
                                 <div class="col-sm-10">
-                                    <select name="activityId" class="form-control m-b">
-                                        @foreach($activity as $value)
-                                            <option value="{{$value['id']}}" @if($value['id'] == $info['static_tmp_id']) selected @endif>
-                                                {{$value['site_name']}}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" value="{{$info['static_tmp']['site_name']}}" class="form-control" readonly>
+                                    <input type="hidden" name="activityId" value="{{$info['static_tmp']['id']}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -41,7 +36,7 @@
                                 <label class="col-sm-2 control-label">活动时间</label>
                                 <div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
                                     <div class="input-group w-md">
-                                        <input name="activityTime" id="activity_time" value="{{date('Y/m/d',$info['start_time'])}} - {{date('Y/m/d',$info['end_time'])}}" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="活动开放时间" required>
+                                        <input name="activityTime" id="activity_time" value="{{date('Y/m/d',$info['start_time'])}} - {{date('Y/m/d',$info['end_time'])}}" ui-jq="daterangepicker" ui-config="activity_dates" class="form-control w-md" placeholder="活动开放时间">
                                         <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" onclick="$('#from_date').click()">
                                             <i class="glyphicon glyphicon-calendar"></i>
