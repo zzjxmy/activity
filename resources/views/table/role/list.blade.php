@@ -29,7 +29,7 @@
         <template scope="scope">
             <el-button
                     size="small"
-            @click="handleEdit(scope.$index,'/role/'+scope.row.id+'/edit')">编辑</el-button>
+            @click="showEditDialog('update',scope.$index,'/role/'+scope.row.id+'/edit')">编辑</el-button>
             <el-button
                     size="small"
                     type="danger"

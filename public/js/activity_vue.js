@@ -12,15 +12,16 @@ new Vue({
             fullscreenLoading: false,
             dialogFormVisible: false,
             form: {},
-            curIndex:'',
+            curIndex: '',
+            dialogType:''
         }
     },
     methods: {
         loadData: function () {
             var self = this;
-            if(self.loading == false)self.loading = true;
-            $.get(ajax_url,this.formData,function (res) {
-                if(res.status === 200) {
+            if (self.loading == false)self.loading = true;
+            $.get(ajax_url, this.formData, function (res) {
+                if (res.status === 200) {
                     self.tableData = res.data;
                     self.total = res.total;
                 } else {
@@ -44,31 +45,36 @@ new Vue({
             this.loadData();
         },
 
-        //编辑
-        handleEdit: function (index,url) {
+        //编辑或添加
+        showEditDialog: function (dialogType,index, url) {
             var self = this;
             self.curIndex = index;
-            self.fullscreenLoading = true;
-            $.get(url, function (res) {
-                self.fullscreenLoading = false;
-                if (res.status === 200) {
-                    self.dialogFormVisible = true;
-                    self.form = res.data;
-                } else {
-                    self.$message.error(res.message);
-                }
-            });
+            self.dialogType = dialogType;
+            if(dialogType == 'add'){
+                self.dialogFormVisible = true;
+            }else if(dialogType == 'update'){
+                self.fullscreenLoading = true;
+                $.get(url, function (res) {
+                    self.fullscreenLoading = false;
+                    if (res.status === 200) {
+                        self.dialogFormVisible = true;
+                        self.form = res.data;
+                    } else {
+                        self.$message.error(res.message);
+                    }
+                });
+            }
         },
 
-        //编辑后保存
-        editSave:function(url){
+        //编辑或添加后保存
+        editSave: function (url) {
             var self = this;
             self.fullscreenLoading = true;
             $.ajax({
                 url: url,
                 type: 'PUT',
                 data: this.form,
-                success: function( res ) {
+                success: function (res) {
                     self.fullscreenLoading = false;
                     if (res.status === 200) {
                         console.log(res.data);
@@ -84,17 +90,17 @@ new Vue({
         },
 
         //删除
-        deleteConfirm:function(index,row,ajaxDeleteUrl) {
+        deleteConfirm: function (index, row, ajaxDeleteUrl) {
             var self = this;
             this.$confirm('确定删除这条数据?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
-            }).then(function(){
+            }).then(function () {
                 $.ajax({
                     url: ajaxDeleteUrl,
                     type: 'DELETE',
-                    success: function( res ) {
+                    success: function (res) {
                         self.fullscreenLoading = false;
                         if (res.status === 200) {
                             self.$message.success(res.message);
@@ -105,7 +111,7 @@ new Vue({
                         }
                     }
                 });
-            }).catch(function() {
+            }).catch(function () {
                 self.$message({
                     type: 'info',
                     message: '已取消删除'
@@ -113,7 +119,7 @@ new Vue({
             })
         },
 
-        timeChange:function(value){
+        timeChange: function (value) {
             alert(value);
         }
     },

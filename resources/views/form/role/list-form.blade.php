@@ -8,7 +8,7 @@
         </el-form-item>
         <el-form-item style="float: right;">
             <el-button-group>
-                <el-button type="success" @click="showAddDialog()">添加角色</el-button>
+                <el-button type="success" @click="$parent.showEditDialog('add','','')">添加角色</el-button>
             </el-button-group>
         </el-form-item>
     </el-form>
@@ -24,12 +24,7 @@
         methods: {
             onSubmit: function () {
                 this.$emit('submit',this.formSearch);
-            },
-            //添加
-            showAddDialog:function(){
-                console.log(111);
-                this.dialogFormVisible = true;
-            },
+            }
         }
     })
 </script>
