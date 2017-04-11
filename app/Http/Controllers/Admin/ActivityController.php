@@ -205,7 +205,7 @@ class ActivityController extends Controller
                 //字段信息修改
                 array_walk($data['addFieldInfo'], function ($value, $key) use ($id,$time) {
                     $field = $value['field'];
-                    unset($value['field'],$value['name']);
+                    unset($value['field']);
                     $value['update_time'] = $time;
                     ActivityFieldInfo::where(['activity_id'=>$id,'field'=> $field])->update($value);
                 }, []);
