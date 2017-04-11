@@ -76,6 +76,7 @@ new Vue({
             self.curIndex = index;
             self.dialogType = dialogType;
             if(dialogType == 'add'){
+                self.form = {};
                 self.dialogFormVisible = true;
             }else if(dialogType == 'update'){
                 self.fullscreenLoading = true;
@@ -94,7 +95,8 @@ new Vue({
         redirectUrl: function (url){
             window.location.href = url;
         },
-            //编辑或添加后保存
+
+        //编辑或添加后保存
         editSave:function(url){
             var self = this;
             self.fullscreenLoading = true;
