@@ -1,11 +1,12 @@
 <?php
 namespace App\Models;
 
-
 use Zizaco\Entrust\EntrustRole;
+use Validator;
 
 class Role extends EntrustRole
 {
+    public $guarded = ['id'];
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -19,8 +20,8 @@ class Role extends EntrustRole
 
     //参数验证
     public function verify(){
-        return \validator()::make(\Request::input(), [
-            'name'=>'required|unique:roles|max:125',
+        return Validator::make(\Request::input(), [
+            'name'=>'required|max:125',
             'display_name'=>'max:255',
             'description'=>'max:255',
         ], $this->messages());
