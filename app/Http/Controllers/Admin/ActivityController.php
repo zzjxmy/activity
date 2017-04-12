@@ -274,6 +274,8 @@ class ActivityController extends Controller
         $data['table_name'] = md5($data['static_tmp_id']);
         $data['type'] = $request->input('activityType');
         $data['status'] = $request->input('activityStatus', 2);
+        $data['is_login'] = $request->input('is_login', 2);
+        $data['user_unique'] = $request->input('user_unique', 2);
         return $data;
     }
 

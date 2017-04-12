@@ -44,29 +44,43 @@
     </el-table-column>
     <el-table-column
             label="ID"
-            prop="id" width="90">
+            prop="id" width="80">
     </el-table-column>
     <el-table-column
             label="活动名称"
-            prop="static_tmp.site_name" width="250">
+            prop="static_tmp.site_name" width="150">
     </el-table-column>
     <el-table-column
             label="活动类型"
-            prop="type" align="center" width="155">
+            prop="type" align="center" width="110">
         <template scope="scope">
             @{{['','默认','拉新','存展示'][scope.row.type]}}
         </template>
     </el-table-column>
     <el-table-column
             label="需要审核"
-            prop="status" align="center" width="153">
+            prop="status" align="center" width="110">
         <template scope="scope">
             @{{scope.row.status==1?'是':'否'}}
         </template>
     </el-table-column>
     <el-table-column
+            label="需要登录"
+            prop="is_login" align="center" width="110">
+        <template scope="scope">
+            @{{scope.row.is_login==1?'是':'否'}}
+        </template>
+    </el-table-column>
+    <el-table-column
+            label="提交一次"
+            prop="user_unique" align="center" width="110">
+        <template scope="scope">
+            @{{scope.row.user_unique==1?'是':'否'}}
+        </template>
+    </el-table-column>
+    <el-table-column
             label="动态表名"
-            prop="table_name" width="300">
+            prop="table_name" width="260">
     </el-table-column>
     <el-table-column
             label="活动开始时间"

@@ -57,6 +57,24 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">需要登录</label>
+                            <div class="col-sm-10">
+                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
+                                    <input name="is_login" type="checkbox" value="1" id="is_check" checked="checked">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提交一次</label>
+                            <div class="col-sm-10">
+                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
+                                    <input name="user_unique" type="checkbox" value="1" id="is_check" checked="checked">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">优惠券码</label>
                             <div class="col-sm-10">
                                 <input name="activityCoupon" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">
