@@ -251,7 +251,7 @@ class ActivityController extends Controller
         //整合数据
         $module = $this->checkModule($request);
         $addFieldInfo = $this->checkInfo($request->only([
-            'name', 'field', 'type', 'explode', 'is_explode',
+            'name', 'field', 'type', 'explode', 'is_explode','like_search',
             'length', 'default', 'unique', 'required', 'order_by', 'search'
         ]));
         return compact('info','module','addFieldInfo');

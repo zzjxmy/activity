@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.16 on 2017-04-01.
+ * Generated for Laravel 5.4.16 on 2017-04-12.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12034,6 +12034,73 @@ namespace Zizaco\Entrust {
     }         
 }
     
+namespace Yajra\Datatables\Facades {
+
+    class Datatables {
+        
+        /**
+         * Gets query and returns instance of class.
+         *
+         * @param mixed $object
+         * @return mixed 
+         * @throws \Exception
+         * @static 
+         */
+        public static function of($object)
+        {
+            return \Yajra\Datatables\Datatables::of($object);
+        }
+        
+        /**
+         * Get request object.
+         *
+         * @return \Yajra\Datatables\Request 
+         * @static 
+         */
+        public static function getRequest()
+        {
+            return \Yajra\Datatables\Datatables::getRequest();
+        }
+        
+        /**
+         * Datatables using Query Builder.
+         *
+         * @param \Illuminate\Database\Query\Builder|mixed $builder
+         * @return \Yajra\Datatables\Engines\QueryBuilderEngine 
+         * @static 
+         */
+        public static function queryBuilder($builder)
+        {
+            return \Yajra\Datatables\Datatables::queryBuilder($builder);
+        }
+        
+        /**
+         * Datatables using Eloquent Builder.
+         *
+         * @param \Illuminate\Database\Eloquent\Builder|mixed $builder
+         * @return \Yajra\Datatables\Engines\EloquentEngine 
+         * @static 
+         */
+        public static function eloquent($builder)
+        {
+            return \Yajra\Datatables\Datatables::eloquent($builder);
+        }
+        
+        /**
+         * Datatables using Collection.
+         *
+         * @param \Illuminate\Support\Collection|mixed $builder
+         * @return \Yajra\Datatables\Engines\CollectionEngine 
+         * @static 
+         */
+        public static function collection($builder)
+        {
+            return \Yajra\Datatables\Datatables::collection($builder);
+        }
+        
+    }         
+}
+    
     
 namespace {
 
@@ -14065,6 +14132,8 @@ namespace {
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
     
     class Entrust extends \Zizaco\Entrust\EntrustFacade {}
+    
+    class Datatables extends \Yajra\Datatables\Facades\Datatables {}
     
 }
 

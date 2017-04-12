@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-04-01.
+    * Generated on 2017-04-12.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -67,6 +67,8 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'datatables.fractal' instanceof \League\Fractal\Manager,
+            'datatables' instanceof \Yajra\Datatables\Datatables,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
@@ -213,6 +215,8 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'datatables.fractal' instanceof \League\Fractal\Manager,
+            'datatables' instanceof \Yajra\Datatables\Datatables,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
@@ -359,6 +363,8 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'datatables.fractal' instanceof \League\Fractal\Manager,
+            'datatables' instanceof \Yajra\Datatables\Datatables,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
@@ -505,6 +511,8 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'datatables.fractal' instanceof \League\Fractal\Manager,
+            'datatables' instanceof \Yajra\Datatables\Datatables,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
