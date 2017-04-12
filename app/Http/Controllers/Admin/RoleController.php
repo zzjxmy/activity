@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StoreBlogPost;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,7 +35,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(StoreBlogPost $request)
+    public function create(Request $request)
     {
         //
     }
@@ -49,7 +48,18 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = new Role();
+        $validator = $role->verify();
+        if($validator->fails()) return $this->response([],-200,$validator->errors()->first());
+        if($role->create([
+            'name'=>$request->input('name'),
+            'display_name'=>$request->input('display_name'),
+            'description'=>$request->input('description')
+        ])){
+            return $this->response([],200,'添加成功');
+        }else{
+            return $this->response([],-200,'添加失败');
+        }
     }
 
     /**

@@ -8,7 +8,7 @@
         </el-form-item>
         <el-form-item style="float: right;">
             <el-button-group>
-                <el-button type="success" @click="$parent.showEditDialog('add','','')">添加角色</el-button>
+                <el-button type="success" @click="$parent.showDialog('add','','')">添加角色</el-button>
             </el-button-group>
         </el-form-item>
     </el-form>

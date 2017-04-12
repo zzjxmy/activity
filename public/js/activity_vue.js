@@ -11,12 +11,15 @@ new Vue({
             loading: false,
             fullscreenLoading: false,
             dialogFormVisible: false,
-            form: {},
+            form: {
+
+            },
             curIndex: '',
             dialogType:''
         }
     },
     methods: {
+        //请求列表数据
         loadData: function () {
             var self = this;
             if (self.loading == false)self.loading = true;
@@ -30,7 +33,15 @@ new Vue({
                 self.loading = false;
             });
         },
-        //表单提交
+
+        //列表搜索查询
+        onSubmit: function (formData) {
+            this.formData = Object.assign(this.formData, formData);
+            if (this.formData.page == 1) this.loadData();
+            this.formData.page = 1;
+        },
+
+        //自定义表单提交
         onSearch: function (formId,url,successUrl) {
             var self = this;
             self.loading = true;
@@ -55,23 +66,27 @@ new Vue({
                 }
             });
         },
-        onSubmit: function (formData) {
-            this.formData = Object.assign(this.formData, formData);
-            if (this.formData.page == 1) this.loadData();
-            this.formData.page = 1;
+
+        //url跳转
+        redirectUrl: function (url){
+            window.location.href = url;
         },
+
+        //当前页修改
         currentChange: function (page) {
             this.formData.page = page;
             this.loadData();
         },
+
+        //当前页面显示条数修改
         sizeChange: function (size) {
             this.formData.pageSize = size;
             this.formData.page = 1;
             this.loadData();
         },
 
-        //编辑或添加
-        showEditDialog: function (dialogType,index, url) {
+        //编辑或添加弹出框
+        showDialog: function (dialogType,index, url) {
             var self = this;
             self.curIndex = index;
             self.dialogType = dialogType;
@@ -92,17 +107,15 @@ new Vue({
             }
         },
 
-        redirectUrl: function (url){
-            window.location.href = url;
-        },
-
         //编辑或添加后保存
-        editSave:function(url){
+        saveDialogData:function(url){
             var self = this;
+            var type = 'POST';
+            if(self.dialogType == 'update') type = 'PUT';
             self.fullscreenLoading = true;
             $.ajax({
                 url: url,
-                type: 'PUT',
+                type: type,
                 data: this.form,
                 success: function (res) {
                     self.fullscreenLoading = false;
@@ -110,7 +123,6 @@ new Vue({
                         self.$message.success(res.message);
                         self.dialogFormVisible = false;
                         Vue.set(self.tableData, self.curIndex, res.data);
-                        //self.tableData[self.curIndex] = res.data;
                     } else {
                         self.$message.error(res.message);
                     }
@@ -150,10 +162,9 @@ new Vue({
             })
         },
 
-        timeChange: function (value) {
-            alert(value);
-        }
     },
+
+    //初始化列表数据
     created: function () {
         is_ajax=='1'?this.loadData():'';
     }

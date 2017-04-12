@@ -36,6 +36,14 @@
 <script>var ajax_url = '{{isset($searchPath)?$searchPath:Request::url()}}';</script>
 <script>var is_ajax = '{{$is_ajax?1:0}}';</script>
 <script src="{{asset('libs/jquery/jquery/dist/jquery.js')}}"></script>
+<script>
+    //表单提交自动添加csrf
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+</script>
 <script src="{{asset('libs/jquery/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="{{asset('js/ui-load.js')}}"></script>
 <script src="{{asset('js/ui-jp.config.js')}}"></script>

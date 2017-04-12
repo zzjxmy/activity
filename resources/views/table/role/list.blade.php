@@ -29,7 +29,7 @@
         <template scope="scope">
             <el-button
                     size="small"
-            @click="showEditDialog('update',scope.$index,'/role/'+scope.row.id+'/edit')">编辑</el-button>
+            @click="showDialog('update',scope.$index,'/role/'+scope.row.id+'/edit')">编辑</el-button>
             <el-button
                     size="small"
                     type="danger"
@@ -52,6 +52,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editSave('/role/'+form.id)">确 定</el-button>
+        <el-button type="primary" v-if="form.id" @click="saveDialogData('/role/'+form.id) ">确 定</el-button>
+        <el-button type="primary" v-else="!form.id" @click="saveDialogData('/role')">确 定</el-button>
     </div>
 </el-dialog>
