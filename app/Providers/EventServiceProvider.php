@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\ActivityListener;
 use App\Listeners\QueryListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         \Illuminate\Database\Events\QueryExecuted::class => [
             QueryListener::class
         ],
+        \App\Events\ActivityEvent::class => [
+            ActivityListener::class
+        ]
     ];
 
     /**

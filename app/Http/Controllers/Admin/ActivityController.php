@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ActivityEvent;
 use App\Models\Activity;
 use App\Models\ActivityFieldInfo;
 use App\Models\Modules;
@@ -123,6 +124,7 @@ class ActivityController extends Controller
                     $value['activity_id'] = $result->id;
                     ActivityFieldInfo::create($value);
                 }, []);
+                event(new ActivityEvent($result->id));
             });
             return $this->response([], 200);
         } catch (\Exception $exception) {
@@ -209,6 +211,7 @@ class ActivityController extends Controller
                     $value['update_time'] = $time;
                     ActivityFieldInfo::where(['activity_id'=>$id,'field'=> $field])->update($value);
                 }, []);
+                event(new ActivityEvent($id));
             });
             return $this->response([], 200,'修改成功');
         } catch (\Exception $exception) {
@@ -229,6 +232,7 @@ class ActivityController extends Controller
             if(!$info)throw new \Exception('活动不存在');
             \DB::transaction(function() use($info,$id){
                 $info->delete();
+                event(new ActivityEvent($id,'delete'));
                 dropTableIfExists($info->table_name);
             });
             return $this->response([],200,'活动删除成功');
@@ -251,7 +255,7 @@ class ActivityController extends Controller
         //整合数据
         $module = $this->checkModule($request);
         $addFieldInfo = $this->checkInfo($request->only([
-            'name', 'field', 'type', 'explode', 'is_explode',
+            'name', 'field', 'type', 'explode', 'is_explode','like_search',
             'length', 'default', 'unique', 'required', 'order_by', 'search'
         ]));
         return compact('info','module','addFieldInfo');
@@ -274,6 +278,8 @@ class ActivityController extends Controller
         $data['table_name'] = md5($data['static_tmp_id']);
         $data['type'] = $request->input('activityType');
         $data['status'] = $request->input('activityStatus', 2);
+        $data['is_login'] = $request->input('is_login', 2);
+        $data['user_unique'] = $request->input('user_unique', 2);
         return $data;
     }
 

@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
+
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', ['middleware' => []], function ($api) {
+    $api->get('commit', 'App\Http\Controllers\Api\ActivityInfoCommitController@index');
+});

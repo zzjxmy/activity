@@ -27,6 +27,12 @@
                 <option value="1" @if($value['is_explode'] == 1) selected @endif>分割</option>
             </select>
         </div>
+        <div class="col-md-2">
+            <select name="like_search[]" class="form-control m-b">
+                <option value="0" @if($value['like_search'] == 0) selected @endif>精确搜索</option>
+                <option value="1" @if($value['like_search'] == 1) selected @endif>模糊搜索</option>
+            </select>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-2">

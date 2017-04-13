@@ -222,6 +222,29 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <b class="badge bg-info pull-right">1</b>
+                            <i class="glyphicon glyphicon-th"></i>
+                            <span>系统设置</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>系统设置</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <span>基本设置</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="line dk hidden-folded"></li>
 
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
