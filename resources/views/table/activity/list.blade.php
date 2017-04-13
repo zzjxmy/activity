@@ -80,7 +80,7 @@
     </el-table-column>
     <el-table-column
             label="动态表名"
-            prop="table_name" width="260">
+            prop="table_name" width="270">
     </el-table-column>
     <el-table-column
             label="活动开始时间"

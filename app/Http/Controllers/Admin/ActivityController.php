@@ -232,7 +232,7 @@ class ActivityController extends Controller
             if(!$info)throw new \Exception('活动不存在');
             \DB::transaction(function() use($info,$id){
                 $info->delete();
-                event(new ActivityEvent($id),'delete');
+                event(new ActivityEvent($id,'delete'));
                 dropTableIfExists($info->table_name);
             });
             return $this->response([],200,'活动删除成功');

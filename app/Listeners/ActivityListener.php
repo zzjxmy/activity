@@ -48,7 +48,7 @@ class ActivityListener
      * 处理活动删除事件.
      */
     public function deleteActivity($event){
-
+        DefaultRedis::del('activity.info:'.$event->id);
     }
 
 }
