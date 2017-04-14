@@ -203,7 +203,7 @@ class ActivityController extends Controller
                     Modules::where(['activity_id'=>$id,'name'=>$key])->update($value);
                 }, []);
                 //组件数据删除
-                if($modules['delete'])Modules::whereIn('id',array_keys($modules['delete']))->delete();
+                if(count($modules['delete']))Modules::whereIn('id',array_keys($modules['delete']))->delete();
                 //字段信息修改
                 array_walk($data['addFieldInfo'], function ($value, $key) use ($id,$time) {
                     $field = $value['field'];
