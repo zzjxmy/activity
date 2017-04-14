@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiBaseController;
-use App\Http\InterfaceActivity\Activity;
-use App\Http\TraitActivity\FieldVerify;
+use App\InterfaceActivity\Activity;
+use App\Serializers\CustomSerializer;
+use App\TraitActivity\FieldVerify;
+use App\Transformers\ActivityTransformer;
 
 class ActivityController extends ApiBaseController implements Activity
 {
     use FieldVerify;
 
     public function list(){
-
+        $activity = \App\Models\Activity::all();
+        return $this->response()->collection($activity,new ActivityTransformer(),function($resource,$fractal){
+            $fractal->setSerializer(new CustomSerializer());
+        });
     }
 
     public function info(){
@@ -19,7 +24,7 @@ class ActivityController extends ApiBaseController implements Activity
     }
 
     public function commit(){
-        return $this->response->noContent();
+
     }
 
     public function verify($data)

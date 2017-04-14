@@ -8,7 +8,7 @@
  */
 
 
-namespace App\Http\TraitActivity;
+namespace App\TraitActivity;
 
 
 trait FieldInfo{

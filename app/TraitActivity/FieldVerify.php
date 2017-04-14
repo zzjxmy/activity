@@ -7,11 +7,19 @@
  * Time: 9:40
  */
 
-namespace App\Http\TraitActivity;
+namespace App\TraitActivity;
 
 
 trait FieldVerify{
     use FieldInfo;
+
+    /**
+     * 字段过滤
+     */
+    public function filter(){
+
+    }
+
     /**
      * 字段唯一性设置
      */

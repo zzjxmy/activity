@@ -19,6 +19,6 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api' ,'middleware' => []], function ($api) {
-    $api->get('commit', 'ActivityController@index');
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api' ,'middleware' => ['api.throttle']], function ($api) {
+    $api->get('commit', 'ActivityController@commit');
 });

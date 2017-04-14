@@ -7,7 +7,7 @@
  * Time: 9:54
  */
 
-namespace App\Http\InterfaceActivity;
+namespace App\InterfaceActivity;
 
 
 interface Activity{
