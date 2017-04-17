@@ -10,14 +10,32 @@
 namespace App\TraitActivity;
 
 
+use Illuminate\Http\Request;
+
 trait FieldVerify{
     use FieldInfo;
+    public $field = [];
+    public $request;
+    public function check(Request $request){
+        $this->field = $this->getData()['fields'];
+        $this->request = $request;
+        if(!count($this->field)){
+            $this->filter();
+        }
+        return [];
+    }
 
     /**
      * 字段过滤
      */
     public function filter(){
-
+        $data = [];
+        foreach ($this->request as $key => $value){
+            if(in_array($key,$this->attributes['fields'])){
+                $data[$key] = $value;
+            }
+        }
+        return $data;
     }
 
     /**

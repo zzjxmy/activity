@@ -80,6 +80,12 @@
                                 <input name="activityCoupon" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">回调函数</label>
+                            <div class="col-sm-10">
+                                <input name="activityCallBack" class="form-control" placeholder="数据插入成功后回调函数--格式：\App\Http\Controller\CallBackController::callBack">
+                            </div>
+                        </div>
                         @include('module.module')
                         @include('module.attr-module',['fields' => []])
                     </form>

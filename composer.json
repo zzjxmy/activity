@@ -24,7 +24,8 @@
     "autoload": {
         "files": [
             "app/Helper/helpers.php",
-            "app/Helper/db.php"
+            "app/Helper/db.php",
+            "app/Helper/define.php"
         ],
         "classmap": [
             "database"

@@ -10,11 +10,13 @@
 namespace App\InterfaceActivity;
 
 
+use Illuminate\Http\Request;
+
 interface Activity{
     /**
      * 验证字段
-     * @param $data
+     * @param \Illuminate\Http\Request $request
      * @return mixed
      */
-    public function verify($data);
+    public function verify(Request $request);
 }

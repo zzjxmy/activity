@@ -18,3 +18,24 @@ if(!function_exists('time_format_check')){
         return ['start_time' => trim($times[0]) , 'end_time' => trim($times[1])];
     }
 }
+
+/**
+ * 获取活动信息
+ * 检测缓存是否存在
+ * 不存在则重新获取
+ */
+if(!function_exists('get_activity_info')){
+    function get_activity_info($id){
+        $key = ACTIVITY_REDIS_INFO_PREFIX.$id;
+        if(DefaultRedis::exists($key)){
+            return json_decode(DefaultRedis::get($key),true);
+        }
+        $info = \App\Models\Activity::getActivityAllInfoById($id);
+        if(!$info){
+            throw new Exception('活动信息不存在');
+        }
+        $data = $info->toArray();
+        DefaultRedis::set($key,json_encode($data));
+        return $data;
+    }
+}

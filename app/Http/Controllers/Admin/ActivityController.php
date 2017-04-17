@@ -242,6 +242,12 @@ class ActivityController extends Controller
 
     }
 
+    /**
+     * 检查字段信息，并获取字段信息
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
     private function checkAndGetInfo(Request $request){
         //验证信息
         $verify = Activity::verify($request);
@@ -255,14 +261,14 @@ class ActivityController extends Controller
         //整合数据
         $module = $this->checkModule($request);
         $addFieldInfo = $this->checkInfo($request->only([
-            'name', 'field', 'type', 'explode', 'is_explode','like_search',
-            'length', 'default', 'unique', 'required', 'order_by', 'search'
+            'name', 'field', 'type', 'explode','search','field_type',
+            'length', 'default', 'unique', 'required', 'order_by','comment'
         ]));
         return compact('info','module','addFieldInfo');
     }
 
     /**
-     * 分析表单信息
+     * 整合表单信息
      * @param Request $request
      * @return array
      * @throws \Exception
@@ -271,15 +277,16 @@ class ActivityController extends Controller
     {
         $time = time_format($request->input('activityTime'));
         if (!$time) throw new \Exception('时间格式错误');
-        $data['start_time'] = strtotime($time['start_time']);
-        $data['end_time'] = strtotime($time['end_time'] . ' 23:59:59');
-        $data['static_tmp_id'] = $request->input('activityId');
-        $data['coupon'] = $request->input('activityCoupon') ?: '';
-        $data['table_name'] = md5($data['static_tmp_id']);
-        $data['type'] = $request->input('activityType');
-        $data['status'] = $request->input('activityStatus', 2);
-        $data['is_login'] = $request->input('is_login', 2);
-        $data['user_unique'] = $request->input('user_unique', 2);
+        $data['start_time']     = strtotime($time['start_time']);
+        $data['end_time']       = strtotime($time['end_time'] . ' 23:59:59');
+        $data['static_tmp_id']  = $request->input('activityId');
+        $data['coupon']         = $request->input('activityCoupon') ?: '';
+        $data['table_name']     = md5($data['static_tmp_id']);
+        $data['type']           = $request->input('activityType');
+        $data['status']         = $request->input('activityStatus', 2);
+        $data['is_login']       = $request->input('is_login', 2);
+        $data['user_unique']    = $request->input('user_unique', 2);
+        $data['call_back']    = $request->input('activityCallBack', 2);
         return $data;
     }
 
@@ -339,6 +346,12 @@ class ActivityController extends Controller
         return $filed;
     }
 
+    /**
+     * 修改时分析组件信息
+     * @param $id
+     * @param $request
+     * @return array
+     */
     private function updateModules($id,$request){
         $modules = $this->checkModule($request);
         $haveModules = Modules::where('activity_id',$id)->get()->toArray();

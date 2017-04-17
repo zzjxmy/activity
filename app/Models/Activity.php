@@ -27,6 +27,19 @@ class Activity extends Model
         });
     }
 
+    public static function commitVerify(Request $request){
+        $validator = \Validator::make($request->input(),[
+            'activity_id' => 'required|min:32:max:32',
+        ],[
+            'activity_id.required' => '无效活动',
+            'activity_id.min' => '无效活动',
+            'activity_id.max' => '无效活动',
+        ]);
+        if($validator->fails()){
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+
     public static function verify(Request $request){
         $validator = \Validator::make($request->input(),[
             'activityId' => 'required|alpha_num|size:32',
@@ -73,6 +86,25 @@ class Activity extends Model
             'dongtai.required_with' => '无效组件',
             'dongtai.array' => '无效组件',
         ];
+    }
+
+    /**
+     * 获取活动所有的信息
+     * @param $id
+     * @return object collection
+     */
+    public static function getActivityAllInfoById($id){
+        return Activity::where('id',$id)->with(['modules','fields'])->first();
+    }
+
+    /**
+     * 根据活动ID(static_tmp_id)获取Activity表信息
+     * @param $id
+     * @param array $fields
+     * @return mixed
+     */
+    public static function getActivityInfoByStaticTmpId($id,$fields = ['*']){
+        return Activity::where('static_tmp_id',$id)->first($fields);
     }
 
     //with static_tmp

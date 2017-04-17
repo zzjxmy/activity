@@ -39,16 +39,16 @@ class ActivityListener
      * 处理活动新增或修改事件
      */
     public function addOrUpdateActivity($event){
-        $info = Activity::where('id',$event->id)->with(['modules','fields'])->first();
+        $info = Activity::getActivityAllInfoById($event->id);
         if($info){
-            DefaultRedis::set('activity.info:'.$event->id,json_encode($info->toArray()));
+            DefaultRedis::set(ACTIVITY_REDIS_INFO_PREFIX.$event->id,json_encode($info->toArray()));
         }
     }
     /**
      * 处理活动删除事件.
      */
     public function deleteActivity($event){
-        DefaultRedis::del('activity.info:'.$event->id);
+        DefaultRedis::del(ACTIVITY_REDIS_INFO_PREFIX.$event->id);
     }
 
 }
