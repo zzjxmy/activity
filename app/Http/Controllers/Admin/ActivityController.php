@@ -287,6 +287,8 @@ class ActivityController extends Controller
         $data['is_login']       = $request->input('is_login', 2);
         $data['user_unique']    = $request->input('user_unique', 2);
         $data['call_back']      = $request->input('activityCallBack', 2);
+        $data['is_test']      = $request->input('is_test', 2);
+        $data['test_mobile']      = $request->input('activityMobile') ?: '';
         return $data;
     }
 

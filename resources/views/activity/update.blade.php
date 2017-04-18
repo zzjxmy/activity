@@ -73,6 +73,21 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">是否测试</label>
+                                <div class="col-sm-10">
+                                    <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
+                                        <input name="is_test" type="checkbox" value="1" id="is_test" @if(1 == $info['is_test']) checked="checked" @endif>
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group test_mobile" @if(2 == $info['is_test']) style="display: none" @endif>
+                                <label class="col-sm-2 control-label">测试手机</label>
+                                <div class="col-sm-10">
+                                    <input name="activityMobile" ui-jq="tagsinput" ui-config="" value="{{$info['test_mobile']}}" class="form-control" style="display: none;" placeholder="手机号码（只对回调和需要登录活动有效），可添加多个">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">优惠券码</label>
                                 <div class="col-sm-10">
                                     <input name="activityCoupon" value="{{$info['coupon']}}" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">

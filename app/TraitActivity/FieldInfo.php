@@ -13,12 +13,11 @@ namespace App\TraitActivity;
 
 trait FieldInfo{
     private $data = [];
-    public $attributes = [];
+    private $attributes = [];
 
     public function setData(array $data){
         $this->data = $data;
         $this->distribute();
-        dd($this->attributes);
         return $this;
     }
 
@@ -54,31 +53,36 @@ trait FieldInfo{
     }
 
     public function getRequired($key){
+        if(isset($this->attributes['required'][$key])){
+            return $this->attributes['required'][$key]==0?false:true;
+        }
         return false;
     }
 
     public function getDefault($key){
-        return '';
+        if(isset($this->attributes['default'][$key])){
+            return $this->attributes['default'][$key]==0?false:true;
+        }
+        return false;
     }
 
     public function getSearch($key){
-        return false;
-    }
-
-    public function getLikeSearch($key){
-        return false;
+        if(isset($this->attributes['default'][$key])){
+            return $this->attributes['default'][$key];
+        }
+        return 0;
     }
 
     public function getAllUnique(){
-        return [];
+        return isset($this->attributes['unique'])?$this->attributes['unique']:[];
     }
 
     public function getAllRequired(){
-        return [];
+        return isset($this->attributes['required'])?$this->attributes['required']:[];
     }
 
     public function getAllDefault(){
-        return [];
+        return isset($this->attributes['default'])?$this->attributes['default']:[];
     }
 
 }

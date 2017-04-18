@@ -42,6 +42,7 @@ if(!function_exists('makeTable')){
                 $table->string('refuse_reason')->default('');
                 $table->integer('praise_num')->unsigned()->default(0);
                 $table->integer('vote_num')->unsigned()->default(0);
+                $table->integer('is_delete')->unsigned()->default(0);
                 $table->timestamps();
                 $table->index('token');
                 $table->index('nick_name');

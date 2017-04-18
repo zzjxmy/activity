@@ -16,11 +16,12 @@ trait FieldVerify{
     use FieldInfo;
     public $field = [];
     public $request;
+    private $allowField = ['token'];
     public function check(Request $request){
         $this->field = $this->getData()['fields'];
         $this->request = $request;
-        if(!count($this->field)){
-            $this->filter();
+        if(count($this->field)){
+            dd($this->filter());
         }
         return [];
     }
@@ -31,7 +32,7 @@ trait FieldVerify{
     public function filter(){
         $data = [];
         foreach ($this->request as $key => $value){
-            if(in_array($key,$this->attributes['fields'])){
+            if(in_array($key,$this->attributes['fields']) || in_array($key,$this->allowField)){
                 $data[$key] = $value;
             }
         }

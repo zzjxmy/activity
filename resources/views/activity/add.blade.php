@@ -59,8 +59,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">需要登录</label>
                             <div class="col-sm-10">
-                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
-                                    <input name="is_login" type="checkbox" value="1" id="is_check" checked="checked">
+                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
+                                    <input name="is_login" type="checkbox" value="1">
                                     <i></i>
                                 </label>
                             </div>
@@ -68,10 +68,25 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">提交一次</label>
                             <div class="col-sm-10">
-                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
-                                    <input name="user_unique" type="checkbox" value="1" id="is_check" checked="checked">
+                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
+                                    <input name="user_unique" type="checkbox" value="1">
                                     <i></i>
                                 </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否测试</label>
+                            <div class="col-sm-10">
+                                <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
+                                    <input name="is_test" type="checkbox" value="1" id="is_test">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group test_mobile" style="display: none">
+                            <label class="col-sm-2 control-label">测试手机</label>
+                            <div class="col-sm-10">
+                                <input name="activityMobile" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="手机号码（只对回调和需要登录活动有效），可添加多个">
                             </div>
                         </div>
                         <div class="form-group">

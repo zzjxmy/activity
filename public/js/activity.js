@@ -39,6 +39,14 @@ $(function(){
         });
     });
 
+    $("#is_test").on('change',function(){
+        if($(this).prop('checked') == true){
+            $(".test_mobile").show();
+        }else{
+            $(".test_mobile").hide();
+        }
+    });
+
     function ck(type){
         if(type == 1){
             $('#is_check').attr('checked',false);
