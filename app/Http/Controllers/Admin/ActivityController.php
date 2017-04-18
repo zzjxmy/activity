@@ -309,6 +309,8 @@ class ActivityController extends Controller
                     'start_time' => $time ? strtotime($time['start_time']) : 0,
                     'end_time' => $time ? strtotime($time['end_time'] . ' 23:59:59') : 0,
                     'num' => isset($value['num']) ? intval($value['num']) : 0,
+                    'call_back_type' => intval($value['callBackType']),
+                    'call_back' => intval($value['callBack']),
                 ];
                 if (isset($value['selfToken'])) $newModule[$key]['token'] = $value['selfToken'];
             }

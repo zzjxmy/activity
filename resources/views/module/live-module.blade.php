@@ -13,10 +13,16 @@
                 <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
                 <input name="live[num]" ui-jq="TouchSpin" type="number" value="1" class="form-control" data-min="0" data-max="999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" style="display: block;">
                 <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                <span class="input-group-btn-vertical" style="color: red">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;(1元等于多少票)
-                                        </span>
+                <span class="input-group-btn-vertical" style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;(1元等于多少票)</span>
             </div>
+        </div>
+        <div>
+            <select name="live[callBackType]" class="form-control m-b" id="activity_type">
+                <option value="1">不回调</option>
+                <option value="2">同步回调</option>
+                <option value="3">仅回调</option>
+            </select>
+            <input name="live[callBack]" value="" type="text" class="form-control" style="width: 500px;" placeholder="回调函数--格式：\App\Http\Controller\CallBackController::callBack">
         </div>
     </div>
 </div>

@@ -129,6 +129,8 @@
                     $(j).prop('checked',true);
                     $('.'+moduleName).removeClass('hidden');
                     $('#'+moduleName+'-input' + ' input[name="'+arr[0]+'[num]"]').val(modules[index]['num']);
+                    $('#'+moduleName+'-input' + ' input[name="'+arr[0]+'[callBack]"]').val(modules[index]['call_back']);
+                    $('#'+moduleName+'-input' + ' select[name="'+arr[0]+'[callBackType]"]').val(modules[index]['call_back_type']);
                     if(moduleName == 'activity-vote-module')$('#'+moduleName+'-input' + ' input[name="'+arr[0]+'[selfToken]"]').val(modules[index]['token']);
                     if(modules[index]['start_time'] > 0){
                         var start_time = new Date(modules[index]['start_time']*1000).Format('yyyy/MM/dd');

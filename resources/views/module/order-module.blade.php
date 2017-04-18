@@ -8,15 +8,21 @@
                 <button type="button" class="btn btn-default" onclick="$('#from_date_order').click()"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
         </div>
-        <div>
+        <div class="m-b">
             <div class="input-group bootstrap-touchspin col-md-4">
                 <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
                 <input name="order[num]" ui-jq="TouchSpin" type="number" value="1" class="form-control" data-min="0" data-max="999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" style="display: block;">
                 <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                <span class="input-group-btn-vertical" style="color: red">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;(1元等于多少票)
-                                        </span>
+                <span class="input-group-btn-vertical" style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;(1元等于多少票)</span>
             </div>
+        </div>
+        <div>
+            <select name="order[callBackType]" class="form-control m-b" id="activity_type">
+                <option value="1">不回调</option>
+                <option value="2">同步回调</option>
+                <option value="3">仅回调</option>
+            </select>
+            <input name="order[callBack]" value="" type="text" class="form-control" style="width: 500px;" placeholder="回调函数--格式：\App\Http\Controller\CallBackController::callBack">
         </div>
     </div>
 </div>
