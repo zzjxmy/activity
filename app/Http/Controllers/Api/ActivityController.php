@@ -40,6 +40,5 @@ class ActivityController extends ApiBaseController implements InterfaceActivity
         $info = Activity::getActivityInfoByStaticTmpId($request->input('activity_id'));
         if(!$info)throw new \Exception('活动不存在');
         $this->setData(get_activity_info($info->id))->check($request);
-
     }
 }

@@ -22,7 +22,7 @@ trait FieldVerify{
         $this->defaultField = $this->getData()['fields'];
         $this->request = $request;
         if(count($this->defaultField) || $request->input('token')){
-            $this->filter()->required()->unique()->default();
+            $this->filter()->required()->mergeExistAndUnRequired()->unique()->default();
         }
         return [];
     }
@@ -52,6 +52,21 @@ trait FieldVerify{
      * 字段必填
      */
     public function required(){
+        $diff = array_diff($this->getAllRequired(),array_flip($this->data));
+        if(count($diff))throw new \Exception($this->attributes['name'][reset($diff)] . '必填');
+        return $this;
+    }
+
+    /**
+     * 合并不存在且非必填的数据
+     */
+    public function mergeExistAndUnRequired(){
+        $unRequiredFields = $this->getAllRequired(0);
+        $merge = [];
+        foreach ($unRequiredFields as $key => $val){
+            $merge[$val] = $this->getDefault($val);
+        }
+        $this->data = array_merge($merge,$this->data);
         return $this;
     }
 

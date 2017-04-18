@@ -21,8 +21,27 @@ trait FieldInfo{
         return $this;
     }
 
-    public function getAttributes(){
+    /**
+     * @param string $key
+     * @return array
+     */
+    public function getAttributesByKey($key)
+    {
+        if(isset($this->attributes[$key])){
+            return $this->attributes[$key];
+        }
+        return [];
+    }
+
+    public function getAllAttributes(){
         return $this->attributes;
+    }
+
+    /**
+     * @param array $attributes
+     */
+    public function setAllAttributes(array $attributes){
+        $this->attributes = $attributes;
     }
 
     public function getData(){
@@ -61,9 +80,9 @@ trait FieldInfo{
 
     public function getDefault($key){
         if(isset($this->attributes['default'][$key])){
-            return $this->attributes['default'][$key]==0?false:true;
+            return $this->attributes['default'][$key];
         }
-        return false;
+        return '';
     }
 
     public function getSearch($key){
@@ -74,15 +93,25 @@ trait FieldInfo{
     }
 
     public function getAllUnique(){
-        return isset($this->attributes['unique'])?$this->attributes['unique']:[];
+        if(!isset($this->attributes['unique']))return [];
+        $allUnique = [];
+        foreach ($this->attributes['unique'] as $key=>$val){
+            if($val)$allUnique[] = $key;
+        }
+        return $allUnique;
     }
 
-    public function getAllRequired(){
-        return isset($this->attributes['required'])?$this->attributes['required']:[];
-    }
-
-    public function getAllDefault(){
-        return isset($this->attributes['default'])?$this->attributes['default']:[];
+    /**
+     * @param int $type 0、非必填 1、必填
+     * @return array
+     */
+    public function getAllRequired($type = 1){
+        if(!isset($this->attributes['required']))return [];
+        $fields = [];
+        foreach ($this->attributes['required'] as $key=>$val){
+            if($val == $type)$fields[] = $key;
+        }
+        return $fields;
     }
 
 }
