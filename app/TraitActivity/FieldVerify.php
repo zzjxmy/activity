@@ -13,18 +13,20 @@ namespace App\TraitActivity;
 use Illuminate\Http\Request;
 
 trait FieldVerify{
+
     use FieldInfo;
+
     public $defaultField = [];
     public $request;
-    public $field;
+    public $saveData;
     private $allowField = ['token'];
-    public function check(Request $request){
+    public function fieldCheck(Request $request){
         $this->defaultField = $this->getData()['fields'];
         $this->request = $request;
         if(count($this->defaultField) || $request->input('token')){
-            $this->filter()->required()->mergeExistAndUnRequired()->unique()->default();
+            $this->filter()->required()->mergeExistAndUnRequired()->unique();
         }
-        return [];
+        return $this;
     }
 
     /**
@@ -34,10 +36,10 @@ trait FieldVerify{
         $data = [];
         foreach ($this->request->input() as $key => $value){
             if(in_array($key,$this->attributes['fields']) || in_array($key,$this->allowField)){
-                $data[$key] = $value;
+                $data[$key] = $this->fieldTypeTransform($value,$this->getFieldType($key));
             }
         }
-        $this->data = $data;
+        $this->saveData = $data;
         return $this;
     }
 
@@ -45,6 +47,13 @@ trait FieldVerify{
      * 字段唯一性设置
      */
     public function unique(){
+        array_walk($this->saveData,function($value,$key){
+            if($this->getUnique($key)){
+                if(\DB::table($this->data['table_name'])->where($key,$value)->count()){
+                    throw new \Exception($this->attributes['name'][$key] .'已经存在');
+                }
+            }
+        });
         return $this;
     }
 
@@ -52,7 +61,7 @@ trait FieldVerify{
      * 字段必填
      */
     public function required(){
-        $diff = array_diff($this->getAllRequired(),array_flip($this->data));
+        $diff = array_diff($this->getAllRequired(),array_flip($this->saveData));
         if(count($diff))throw new \Exception($this->attributes['name'][reset($diff)] . '必填');
         return $this;
     }
@@ -66,14 +75,7 @@ trait FieldVerify{
         foreach ($unRequiredFields as $key => $val){
             $merge[$val] = $this->getDefault($val);
         }
-        $this->data = array_merge($merge,$this->data);
-        return $this;
-    }
-
-    /**
-     * 字段默认值
-     */
-    public function default(){
+        $this->saveData = array_merge($merge,$this->saveData);
         return $this;
     }
 
@@ -82,6 +84,17 @@ trait FieldVerify{
      */
     public function search(){
 
+    }
+
+    /**
+     * 设置用户信息，如果存在token
+     */
+    public function setUserInfo()
+    {
+        if(isset($this->saveData['token'])){
+
+        }
+        return $this;
     }
 
 

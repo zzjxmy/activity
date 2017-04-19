@@ -6,13 +6,13 @@ use App\Http\Controllers\ApiBaseController;
 use App\InterfaceActivity\Activity as InterfaceActivity;
 use App\Models\Activity;
 use App\Serializers\CustomSerializer;
-use App\TraitActivity\FieldVerify;
+use \App\TraitActivity\Activity as Tactivity;
 use App\Transformers\ActivityTransformer;
 use Illuminate\Http\Request;
 
 class ActivityController extends ApiBaseController implements InterfaceActivity
 {
-    use FieldVerify;
+    use Tactivity;
 
     public function list(){
         $activity = Activity::all();
@@ -39,6 +39,6 @@ class ActivityController extends ApiBaseController implements InterfaceActivity
         Activity::commitVerify($request);
         $info = Activity::getActivityInfoByStaticTmpId($request->input('activity_id'));
         if(!$info)throw new \Exception('活动不存在');
-        $this->setData(get_activity_info($info->id))->check($request);
+        $this->setCheckData(get_activity_info($info->id))->fieldCheck($request)->activityCheck();
     }
 }
