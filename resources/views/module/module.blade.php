@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label class="col-sm-2 control-label">组件选择</label>
+    <label class="col-sm-2 control-label" style="padding-top: 14px;">组件选择</label>
     <div class="col-sm-10" id="module_check">
         <div class="checkbox module">
             <label class="i-checks pr-sm checkbox-inline">

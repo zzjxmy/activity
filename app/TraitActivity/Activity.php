@@ -16,23 +16,29 @@ trait Activity{
     use FieldVerify;
 
     public function activityCheck(){
-        $this->checkToken()->setStatus();
+        $this->checkTime()->checkToken()->setStatus();
         return $this;
     }
 
     public function checkToken(){
         if($this->data['is_login'] == 1){
-            if(!isset($this->saveData['token'])){
-                throw new \Exception('无效用户');
-            }
+            if(!isset($this->saveData['token']))throw new \Exception('无效用户');
+
             $userInfo = YppUser::where('token',$this->saveData['token'])->with(['yppUserExt' => function($query){
                 $query->select(['uid','nickname']);
             }])->first(['id','mobile']);
             if(!$userInfo)throw new \Exception('无效用户');
+
             $this->checkOnly()->isTest($userInfo);
             $this->saveData['nick_name'] = $userInfo->yppUserExt->nickname;
             $this->saveData['mobile'] = $userInfo->mobile;
         }
+        return $this;
+    }
+
+    public function checkTime(){
+        if(time() < $this->data['start_time'])throw new \Exception('活动未开始');
+        if(time() > $this->data['end_time'])throw new \Exception('活动已经结束');
         return $this;
     }
 
