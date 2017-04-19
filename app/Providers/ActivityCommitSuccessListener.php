@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Listeners;
 
 use App\Events\ActivityCommitSuccessEvent;
 use Illuminate\Queue\InteractsWithQueue;
@@ -26,14 +26,6 @@ class ActivityCommitSuccessListener
      */
     public function handle(ActivityCommitSuccessEvent $event)
     {
-        if(isset($event->activityInfo['call_back']) && !empty($event->activityInfo['call_back'])){
-            $function = explode('::',$event->activityInfo['call_back']);
-            if(count($function) == 2 && class_exists($function[0])){
-                $obj = app()->make($function[0]);
-                if(method_exists($obj,$function[1])){
-                    call_user_func_array([$obj,$function[1]],[$event->data,$event->activityInfo]);
-                }
-            }
-        }
+        activity_call_back($event->activityInfo['call_back'],[$event->data,$event->activityInfo]);
     }
 }

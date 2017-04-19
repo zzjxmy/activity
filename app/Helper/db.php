@@ -20,6 +20,7 @@ if(!function_exists('makeTable')){
     function makeTable(array $filed,$tableName){
         try{
             Schema::create($tableName,function(Blueprint $table) use($filed){
+                $table->engine = 'InnoDB';
                 $table->bigIncrements('id')->unsigned();
                 if(!in_array('token',$filed))$table->char('token',32);
                 if(!in_array('mobile',$filed))$table->char('mobile',11);

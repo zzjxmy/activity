@@ -53,7 +53,7 @@ class ApiBaseController extends Controller{
         ], 200);
     }
 
-    public function responseFailed($message='操作失败')
+    public function responseFailed($message='未知错误')
     {
         return \Response::json([
             'message' => $message,
@@ -61,12 +61,12 @@ class ApiBaseController extends Controller{
         ], 400);
     }
 
-    public function responseError($message='未知错误')
+    public function responseError($message='操作失败')
     {
         return \Response::json([
             'message' => $message,
-            'status_code' => 500
-        ], 500);
+            'status_code' => 0
+        ], 200);
     }
 
 }

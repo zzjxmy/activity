@@ -1,20 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zhangzhijian
- * Signature: change self
- * Date: 2017/4/19
- * Time: 12:01
- */
 
+/**
+ * Handle the event.
+ *
+ * @param  $callBack string '回调函数'
+ * @param $data array 回调函数参数
+ * @return void
+ */
 if(!function_exists('activity_call_back')){
-    function activity_call_back(\App\Events\ActivityCommitSuccessEvent $event){
-        if(isset($event->activityInfo['call_back']) && !empty($event->activityInfo['call_back'])){
-            $function = explode('::',$event->activityInfo['call_back']);
+    function activity_call_back($callBack = '',array $data = []){
+        if(!empty($callBack)){
+            $function = explode('::',$callBack);
             if(count($function) == 2 && class_exists($function[0])){
                 $obj = app()->make($function[0]);
                 if(method_exists($obj,$function[1])){
-                    call_user_func_array([$obj,$function[1]],[$event->data,$event->activityInfo]);
+                    call_user_func_array([$obj,$function[1]],[$data]);
                 }
             }
         }

@@ -47,34 +47,28 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">需要审核</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-1" style="width: 5.333333%">
                                     <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
                                         <input name="activityStatus" type="checkbox" value="1" id="is_check" @if(1 == $info['status']) checked="checked" @endif >
                                         <i></i>
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">需要登录</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-1 control-label" style="width: 5.333333%">需要登录</label>
+                                <div class="col-sm-1" style="width: 5.333333%">
                                     <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
                                         <input name="is_login" type="checkbox" value="1" id="is_check" @if(1 == $info['is_login']) checked="checked" @endif>
                                         <i></i>
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">提交一次</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-1 control-label" style="width: 5.333333%">用户唯一</label>
+                                <div class="col-sm-1" style="width: 5.333333%">
                                     <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
                                         <input name="user_unique" type="checkbox" value="1" id="is_check" @if(1 == $info['user_unique']) checked="checked" @endif>
                                         <i></i>
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">是否测试</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-1 control-label" style="width: 5.333333%">是否测试</label>
+                                <div class="col-sm-1" style="width: 5.333333%">
                                     <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
                                         <input name="is_test" type="checkbox" value="1" id="is_test" @if(1 == $info['is_test']) checked="checked" @endif>
                                         <i></i>
@@ -84,19 +78,19 @@
                             <div class="form-group test_mobile" @if(2 == $info['is_test']) style="display: none" @endif>
                                 <label class="col-sm-2 control-label">测试手机</label>
                                 <div class="col-sm-10">
-                                    <input name="activityMobile" ui-jq="tagsinput" ui-config="" value="{{$info['test_mobile']}}" class="form-control" style="display: none;" placeholder="手机号码（只对回调和需要登录活动有效），可添加多个">
+                                    <input name="activityMobile" ui-jq="tagsinput" ui-config="" value="{{$info['test_mobile']}}" class="form-control" style="display: none;" placeholder="手机号码（只对回调和需要登录活动有效），可添加多个（可为空）">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">优惠券码</label>
                                 <div class="col-sm-10">
-                                    <input name="activityCoupon" value="{{$info['coupon']}}" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个">
+                                    <input name="activityCoupon" value="{{$info['coupon']}}" ui-jq="tagsinput" ui-config="" class="form-control" style="display: none;" placeholder="优惠券码，可添加多个（可为空）">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">回调函数</label>
                                 <div class="col-sm-10">
-                                    <input name="activityCallBack" class="form-control" value="{{$info['call_back']}}" placeholder="数据插入成功后回调函数--格式：\App\Http\Controller\CallBackController::callBack">
+                                    <input name="activityCallBack" class="form-control" value="{{$info['call_back']}}" placeholder="数据插入成功后回调函数（可为空）--格式：\App\Http\Controller\CallBackController::callBack">
                                 </div>
                             </div>
                             @include('module.module')

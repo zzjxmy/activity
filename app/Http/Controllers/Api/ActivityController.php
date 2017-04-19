@@ -30,10 +30,12 @@ class ActivityController extends ApiBaseController implements InterfaceActivity
     public function commit(Request $request){
         try{
             $this->verify($request);
-            if(!\DB::table($this->data['table_name'])->insert($this->saveData)){
-                throw new \Exception('提交失败，请稍后再试');
-            }
-            event(new ActivityCommitSuccessEvent($this->data,$this->info));
+            \DB::transaction(function(){
+                if(!\DB::table($this->data['table_name'])->insert($this->saveData)){
+                    throw new \Exception('提交失败，请稍后再试');
+                }
+                event(new ActivityCommitSuccessEvent($this->data,$this->info));
+            });
             return $this->responseSuccess();
         }catch (\Exception $exception){
             return $this->responseError($exception->getMessage());
