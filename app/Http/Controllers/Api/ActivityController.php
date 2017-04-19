@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\ActivityCommitSuccessEvent;
 use App\Http\Controllers\ApiBaseController;
 use App\InterfaceActivity\Activity as InterfaceActivity;
 use App\Models\Activity;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 class ActivityController extends ApiBaseController implements InterfaceActivity
 {
     use Tactivity;
+    protected $info;
 
     public function list(){
         $activity = Activity::all();
@@ -28,9 +30,13 @@ class ActivityController extends ApiBaseController implements InterfaceActivity
     public function commit(Request $request){
         try{
             $this->verify($request);
-
+            if(!\DB::table($this->data['table_name'])->insert($this->saveData)){
+                throw new \Exception('提交失败，请稍后再试');
+            }
+            event(new ActivityCommitSuccessEvent($this->data,$this->info));
+            return $this->responseSuccess();
         }catch (\Exception $exception){
-            dd($exception->getMessage());
+            return $this->responseError($exception->getMessage());
         }
     }
 
@@ -39,6 +45,7 @@ class ActivityController extends ApiBaseController implements InterfaceActivity
         Activity::commitVerify($request);
         $info = Activity::getActivityInfoByStaticTmpId($request->input('activity_id'));
         if(!$info)throw new \Exception('活动不存在');
+        $this->info = $info;
         $this->setCheckData(get_activity_info($info->id))->fieldCheck($request)->activityCheck();
     }
 }

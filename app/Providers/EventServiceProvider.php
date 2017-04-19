@@ -23,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\ActivityEvent::class => [
             ActivityListener::class
+        ],
+        \App\Events\ActivityCommitSuccessEvent::class => [
+            ActivityCommitSuccessListener::class
         ]
     ];
 

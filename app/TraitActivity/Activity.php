@@ -25,12 +25,12 @@ trait Activity{
             if(!isset($this->saveData['token'])){
                 throw new \Exception('无效用户');
             }
-            $userInfo = YppUser::where('id',$this->saveData['token'])->first(['id','mobile'])->with('yppUserExt',function($query){
+            $userInfo = YppUser::where('token',$this->saveData['token'])->with(['yppUserExt' => function($query){
                 $query->select(['uid','nickname']);
-            });
+            }])->first(['id','mobile']);
             if(!$userInfo)throw new \Exception('无效用户');
             $this->checkOnly()->isTest($userInfo);
-            $this->saveData['nickname'] = $userInfo->yppUserExt->nickname;
+            $this->saveData['nick_name'] = $userInfo->yppUserExt->nickname;
             $this->saveData['mobile'] = $userInfo->mobile;
         }
         return $this;

@@ -26,7 +26,7 @@ class ApiBaseController extends Controller{
     public function responseJson(array $data = [],$message = '请求成功',$statusCode = 200)
     {
         $jsonData = [
-            'data' => json_encode($data),
+            'data' => $data,
             'message' => $message,
             'status_code' => $statusCode
         ];

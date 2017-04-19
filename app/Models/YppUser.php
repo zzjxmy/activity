@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class YppUser extends Model
 {
-    protected $connection = 'ypp_huodong';
-    protected $table = 'ypp_user';
+    protected $connection = 'ypp_app';
+    protected $table = 't_user';
     public $keyType = 'string';
 
     public function yppUserExt(){
