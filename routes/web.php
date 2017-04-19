@@ -19,6 +19,7 @@ Route::group(['namespace' => 'Admin','middleware' => ['auth']],function(){
     Route::resource('activity','ActivityController');
     Route::get('/', 'IndexController@index');
 
-    Route::resource('purview','PurviewController');//权限管理
-    Route::resource('role','RoleController');//角色管理
+    Route::resource('purview','PurviewController');//权限列表
+    Route::resource('role','RoleController');//角色列表
+    Route::resource('user','UserController');//用户列表
 });

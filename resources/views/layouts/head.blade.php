@@ -52,7 +52,7 @@
 <script src="{{asset('js/ui-toggle.js')}}"></script>
 <script src="{{asset('js/ui-client.js')}}"></script>
 <script src="{{asset('js/activity.js')}}"></script>
-<script src="{{asset('js/activity_vue.js')}}"></script>
+<script src="{{asset('js/activity_vue.js')}}?v=<?php echo time(); ?>"></script>
 <script src="{{asset('libs/jquery/moment/moment.js')}}"></script>
 <script src="{{asset('libs/jquery/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 @yield('script')

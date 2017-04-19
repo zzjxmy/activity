@@ -11,9 +11,7 @@ new Vue({
             loading: false,
             fullscreenLoading: false,
             dialogFormVisible: false,
-            form: {
-
-            },
+            form: {},
             curIndex: '',
             dialogType:''
         }
@@ -122,7 +120,8 @@ new Vue({
                     if (res.status === 200) {
                         self.$message.success(res.message);
                         self.dialogFormVisible = false;
-                        Vue.set(self.tableData, self.curIndex, res.data);
+                        if(self.dialogType == 'update') Vue.set(self.tableData, self.curIndex, res.data);//修改
+                        if(self.dialogType == 'add') self.tableData.push(res.data);//添加
                     } else {
                         self.$message.error(res.message);
                     }

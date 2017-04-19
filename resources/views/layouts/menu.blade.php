@@ -195,7 +195,7 @@
                                 <i class="fa fa-fw fa-angle-right text"></i>
                                 <i class="fa fa-fw fa-angle-down text-active"></i>
                             </span>
-                            <b class="badge bg-info pull-right">4</b>
+                            <b class="badge bg-info pull-right">3</b>
                             <i class=" icon-user-following icon"></i>
                             <span>权限管理</span>
                         </a>
@@ -206,18 +206,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{url('purview/create')}}">
-                                    <span>新增权限</span>
-                                </a>
-                            </li>
-                            <li>
                                 <a href="{{url('role')}}">
                                     <span>角色列表</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{url('role/create')}}">
-                                    <span>新增角色</span>
+                                <a href="{{url('user')}}">
+                                    <span>用户列表</span>
                                 </a>
                             </li>
                         </ul>
