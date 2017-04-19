@@ -55,14 +55,14 @@
                                 </div>
                                 <label class="col-sm-1 control-label" style="width: 5.333333%">需要登录</label>
                                 <div class="col-sm-1" style="width: 5.333333%">
-                                    <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
+                                    <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
                                         <input name="is_login" type="checkbox" value="1" id="is_check" @if(1 == $info['is_login']) checked="checked" @endif>
                                         <i></i>
                                     </label>
                                 </div>
                                 <label class="col-sm-1 control-label" style="width: 5.333333%">用户唯一</label>
                                 <div class="col-sm-1" style="width: 5.333333%">
-                                    <label class="i-switch i-switch-lg bg-info m-t-xs m-r is_check">
+                                    <label class="i-switch i-switch-lg bg-info m-t-xs m-r">
                                         <input name="user_unique" type="checkbox" value="1" id="is_check" @if(1 == $info['user_unique']) checked="checked" @endif>
                                         <i></i>
                                     </label>
