@@ -12,7 +12,26 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiBaseController;
 
 class MnsController extends ApiBaseController{
-    public function commit(){
+
+    public function __construct()
+    {
 
     }
+
+    public function activityVote(){
+
+    }
+
+    public function dongTai(){
+
+    }
+
+    public function like(){
+
+    }
+
+    public function order(){
+
+    }
+
 }

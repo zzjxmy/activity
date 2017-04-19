@@ -39,3 +39,19 @@ if(!function_exists('get_activity_info')){
         return $data;
     }
 }
+
+/**
+ * 获取活动组件信息
+ * 检测缓存是否存在
+ * 不存在则重新获取
+ */
+if(!function_exists('get_activity_modules')){
+    function get_activity_modules(){
+        if(DefaultRedis::exists(ACTIVITY_MODULES)){
+            return json_decode(DefaultRedis::get(ACTIVITY_MODULES),true);
+        }
+        $data = App\Models\Modules::getModules();
+        DefaultRedis::set(ACTIVITY_MODULES,json_encode($data));
+        return $data;
+    }
+}

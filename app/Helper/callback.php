@@ -3,7 +3,7 @@
 /**
  * Handle the event.
  *
- * @param  $callBack string '回调函数'
+ * @param $callBack string '回调函数'
  * @param $data array 回调函数参数
  * @return void
  */

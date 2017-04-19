@@ -25,4 +25,13 @@ class Modules extends Model
             $this->update_time = time();
         });
     }
+
+    public static function getModules(){
+        $info  = Modules::orderBy('create_time','desc')->get()->toArray();
+        $modules = [];
+        foreach ($info as $key=>$value){
+            $modules[$value['name']][] = $value;
+        }
+        return $modules;
+    }
 }
