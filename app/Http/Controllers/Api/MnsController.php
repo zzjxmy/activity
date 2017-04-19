@@ -18,19 +18,52 @@ class MnsController extends ApiBaseController{
 
     }
 
+    /**
+     * 活动页投票
+     */
     public function activityVote(){
 
     }
 
+    /**
+     * 动态打赏
+     */
     public function dongTai(){
 
     }
 
+    /**
+     * 点赞
+     */
     public function like(){
 
     }
 
+    /**
+     * 下单
+     */
     public function order(){
+
+    }
+
+    /**
+     * 直播间打赏
+     */
+    public function live(){
+
+    }
+
+    /**
+     * 用户登录
+     */
+    public function userLogin(){
+
+    }
+
+    /**
+     * 用户注册
+     */
+    public function userRegister(){
 
     }
 
