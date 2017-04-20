@@ -201,7 +201,7 @@
                         </a>
                         <ul class="nav nav-sub dk">
                             <li>
-                                <a href="{{url('purview')}}">
+                                <a href="{{url('permission')}}">
                                     <span>权限列表</span>
                                 </a>
                             </li>
