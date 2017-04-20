@@ -11,7 +11,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiBaseController;
 use App\TraitActivity\Queue;
-use Illuminate\Http\Request;
 
 class MnsController extends ApiBaseController{
     use Queue;
