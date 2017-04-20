@@ -7,8 +7,8 @@
  * @param $data array 回调函数参数
  * @return void
  */
-if(!function_exists('activity_call_back')){
-    function activity_call_back($callBack = '',array $data = []){
+if(!function_exists('call_back')){
+    function call_back($callBack = '',array $data = []){
         if(!empty($callBack)){
             $function = explode('::',$callBack);
             if(count($function) == 2 && class_exists($function[0])){
@@ -18,5 +18,23 @@ if(!function_exists('activity_call_back')){
                 }
             }
         }
+    }
+}
+
+if(! function_exists('get_callback_data')){
+    function get_callback_data($info){
+        $request = Request::input();
+        if(!isset($request['MessageId']) || !isset($request['Message'])){
+            throw new \Exception('没有MessageID或者Message数据');
+        }
+        //防止单条通知，重复触发
+        $redis = \DefaultRedis::connection('call_back');
+        $key = $info.':'.$request['MessageId'];
+        if($redis->exists($key))throw new \Exception('重复触发数据');
+        //set redis
+        $redis->set($key,serialize($request));
+        //decode
+        $request['Message'] = json_decode($request['Message'],true);
+        return $request;
     }
 }

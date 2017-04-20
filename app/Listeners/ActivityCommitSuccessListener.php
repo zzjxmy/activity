@@ -26,6 +26,6 @@ class ActivityCommitSuccessListener
      */
     public function handle(ActivityCommitSuccessEvent $event)
     {
-        activity_call_back($event->activityInfo['call_back'],[$event->data,$event->activityInfo]);
+        call_back($event->activityInfo['call_back'],[$event->data,$event->activityInfo]);
     }
 }

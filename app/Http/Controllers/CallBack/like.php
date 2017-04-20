@@ -4,17 +4,16 @@
  * User: zhangzhijian
  * Signature: change self
  * Date: 2017/4/19
- * Time: 13:37
+ * Time: 15:51
  */
-
 
 namespace App\Http\Controllers\CallBack;
 
 
 use App\Http\Controllers\Controller;
 
-class TestController extends Controller{
+class LikeModule extends Controller{
     public function handle(){
-        \Log::info('I am Teacher');
+
     }
 }
