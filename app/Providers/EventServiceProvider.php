@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\ActivityCommitSuccessListener;
 use App\Listeners\ActivityListener;
 use App\Listeners\QueryListener;
 use Illuminate\Support\Facades\Event;
@@ -23,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\ActivityEvent::class => [
             ActivityListener::class
+        ],
+        \App\Events\ActivityCommitSuccessEvent::class => [
+            ActivityCommitSuccessListener::class
         ]
     ];
 

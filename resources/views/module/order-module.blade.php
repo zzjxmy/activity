@@ -18,11 +18,11 @@
         </div>
         <div>
             <select name="order[callBackType]" class="form-control m-b" id="activity_type">
-                <option value="1">不回调</option>
-                <option value="2">同步回调</option>
-                <option value="3">仅回调</option>
+                <option value="1">不回调下列函数</option>
+                <option value="2">同步回调下列函数</option>
+                <option value="3">仅回调下列函数</option>
             </select>
-            <input name="order[callBack]" value="" type="text" class="form-control" style="width: 500px;" placeholder="回调函数--格式：\App\Http\Controller\CallBackController::callBack">
+            <input name="order[callBack]" value="" type="text" class="form-control" style="width: 500px;" placeholder="回调函数（可为空）--格式：\App\Http\Controller\CallBackController::callBack">
         </div>
     </div>
 </div>

@@ -20,10 +20,12 @@ if(!function_exists('makeTable')){
     function makeTable(array $filed,$tableName){
         try{
             Schema::create($tableName,function(Blueprint $table) use($filed){
+                $table->engine = 'InnoDB';
                 $table->bigIncrements('id')->unsigned();
                 if(!in_array('token',$filed))$table->char('token',32);
                 if(!in_array('mobile',$filed))$table->char('mobile',11);
                 if(!in_array('nick_name',$filed))$table->char('nick_name',100);
+                //1、待审核 2、已审核 3、已拒绝
                 $table->tinyInteger('status')->unsigned()->default(1);
                 foreach ($filed as $val){
                     $validator = \Validator::make($val,[
@@ -42,6 +44,7 @@ if(!function_exists('makeTable')){
                 $table->string('refuse_reason')->default('');
                 $table->integer('praise_num')->unsigned()->default(0);
                 $table->integer('vote_num')->unsigned()->default(0);
+                //0、未删除 1、已删除
                 $table->integer('is_delete')->unsigned()->default(0);
                 $table->timestamps();
                 $table->index('token');

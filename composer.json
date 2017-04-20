@@ -25,7 +25,8 @@
         "files": [
             "app/Helper/helpers.php",
             "app/Helper/db.php",
-            "app/Helper/define.php"
+            "app/Helper/define.php",
+            "app/Helper/callback.php"
         ],
         "classmap": [
             "database"

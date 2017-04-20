@@ -15,13 +15,18 @@ trait FieldInfo{
     private $data = [];
     private $attributes = [];
 
-    public function setData(array $data){
+    public function setCheckData(array $data){
         $this->data = $data;
         $this->distribute();
         return $this;
     }
 
+    public function getSaveData(){
+        return $this->saveData;
+    }
+
     /**
+     * 根据key值来获取属性值
      * @param string $key
      * @return array
      */
@@ -33,6 +38,10 @@ trait FieldInfo{
         return [];
     }
 
+    /**
+     * 获取所有的属性值
+     * @return array
+     */
     public function getAllAttributes(){
         return $this->attributes;
     }
@@ -48,6 +57,9 @@ trait FieldInfo{
         return $this->data;
     }
 
+    /**
+     * 属性值整合
+     */
     public function distribute(){
         foreach ($this->data['fields'] as $key => $value){
             $this->attributes['name'][$value['field']]          = $value['name'];
@@ -64,6 +76,11 @@ trait FieldInfo{
         }
     }
 
+    /**
+     * 获取单个字段是否唯一
+     * @param $key
+     * @return bool
+     */
     public function getUnique($key){
         if(isset($this->attributes['unique'][$key])){
             return $this->attributes['unique'][$key]==0?false:true;
@@ -71,6 +88,11 @@ trait FieldInfo{
         return false;
     }
 
+    /**
+     * 获取单个字段是否必填
+     * @param $key
+     * @return bool
+     */
     public function getRequired($key){
         if(isset($this->attributes['required'][$key])){
             return $this->attributes['required'][$key]==0?false:true;
@@ -78,6 +100,11 @@ trait FieldInfo{
         return false;
     }
 
+    /**
+     * 获取单个字段的默认值
+     * @param $key
+     * @return string
+     */
     public function getDefault($key){
         if(isset($this->attributes['default'][$key])){
             return $this->attributes['default'][$key];
@@ -85,6 +112,33 @@ trait FieldInfo{
         return '';
     }
 
+    /**
+     * 获取单个字段类型 0、字符串  1、整型
+     * @param $key
+     * @return int
+     */
+    public function getFieldType($key){
+        if(isset($this->attributes['field_type'][$key])){
+            return $this->attributes['field_type'][$key];
+        }
+        return 0;
+    }
+
+    /**
+     * 值转换
+     * @param $val
+     * @param int $type
+     * @return int
+     */
+    public function fieldTypeTransform($val,$type = 0){
+        return $type!=0?intval($val):$val;
+    }
+
+    /**
+     * 获取单个字段是否为搜索字段
+     * @param $key
+     * @return int
+     */
     public function getSearch($key){
         if(isset($this->attributes['default'][$key])){
             return $this->attributes['default'][$key];
@@ -92,6 +146,10 @@ trait FieldInfo{
         return 0;
     }
 
+    /**
+     * 获取所有的唯一性字段
+     * @return array
+     */
     public function getAllUnique(){
         if(!isset($this->attributes['unique']))return [];
         $allUnique = [];
@@ -102,6 +160,7 @@ trait FieldInfo{
     }
 
     /**
+     * 获取所有的必填或者非必填字段
      * @param int $type 0、非必填 1、必填
      * @return array
      */

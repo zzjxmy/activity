@@ -286,7 +286,7 @@ class ActivityController extends Controller
         $data['status']         = $request->input('activityStatus', 2);
         $data['is_login']       = $request->input('is_login', 2);
         $data['user_unique']    = $request->input('user_unique', 2);
-        $data['call_back']      = $request->input('activityCallBack', 2);
+        $data['call_back']      = $request->input('activityCallBack')?:'';
         $data['is_test']      = $request->input('is_test', 2);
         $data['test_mobile']      = $request->input('activityMobile') ?: '';
         return $data;
@@ -310,7 +310,7 @@ class ActivityController extends Controller
                     'end_time' => $time ? strtotime($time['end_time'] . ' 23:59:59') : 0,
                     'num' => isset($value['num']) ? intval($value['num']) : 0,
                     'call_back_type' => intval($value['callBackType']),
-                    'call_back' => intval($value['callBack']),
+                    'call_back' => $value['callBack']?:'',
                 ];
                 if (isset($value['selfToken'])) $newModule[$key]['token'] = $value['selfToken'];
             }
