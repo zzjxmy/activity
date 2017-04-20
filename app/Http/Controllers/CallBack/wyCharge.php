@@ -4,7 +4,7 @@
  * User: zhangzhijian
  * Signature: change self
  * Date: 2017/4/20
- * Time: 11:01
+ * Time: 14:34
  */
 
 namespace App\Http\Controllers\CallBack;
@@ -12,7 +12,7 @@ namespace App\Http\Controllers\CallBack;
 
 use App\Http\Controllers\Controller;
 
-class userRegister extends Controller{
+class wyCharge extends Controller{
     public function handle(){
 
     }

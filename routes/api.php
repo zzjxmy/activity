@@ -15,27 +15,29 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 
-//频率限制
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api' ,'middleware' => ['api','api.throttle']], function ($api) {
-    $api->post('commit', 'ActivityController@commit');
-    $api->post('commit', 'ActivityController@info');
-    $api->post('commit', 'ActivityController@list');
+//无频率限制
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api) {
+    //下单完成
+    $api->post('order_call_back', 'MnsController@order');
+    //点赞
+    $api->post('like_call_back', 'MnsController@like');
+    //活动页投票
+    $api->post('activity_vote_call_back', 'MnsController@activityVote');
+    //动态打赏
+    $api->post('dong_tai_callBack', 'MnsController@dongTai');
+    //直播间打赏
+    $api->post('live_call_back', 'MnsController@live');
+    //充值
+    $api->post('live_call_back', 'MnsController@live');
+    //用户登录
+    $api->post('user_login_call_back', 'MnsController@userLogin');
+    //用户注册
+    $api->post('user_register_call_back', 'MnsController@userRegister');
 });
 
-//无频率限制
-$api->version('v2', ['namespace' => 'App\Http\Controllers\Api'], function ($api) {
-    //下单
-    $api->post('commit', 'MnsController@order');
-    //点赞
-    $api->post('commit', 'MnsController@like');
-    //活动页投票
-    $api->post('commit', 'MnsController@activityVote');
-    //动态打赏
-    $api->post('commit', 'MnsController@dongTai');
-    //直播间打赏
-    $api->post('commit', 'MnsController@live');
-    //用户登录
-    $api->post('commit', 'MnsController@userLogin');
-    //用户注册
-    $api->post('commit', 'MnsController@userRegister');
+//频率限制
+$api->version('v2', ['namespace' => 'App\Http\Controllers\Api' ,'middleware' => ['api','api.throttle']], function ($api) {
+    $api->post('commit', 'ActivityController@commit');
+    $api->any('info', 'ActivityController@info');
+    $api->any('list', 'ActivityController@list');
 });

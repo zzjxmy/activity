@@ -12,8 +12,8 @@ namespace App\Http\Controllers\CallBack;
 
 use App\Http\Controllers\Controller;
 
-class OrderModule extends Controller{
+class order extends Controller{
     public function handle(){
-
+        \Log::info('HGHHHHHHHH');
     }
 }

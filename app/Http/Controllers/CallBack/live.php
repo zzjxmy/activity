@@ -12,7 +12,7 @@ namespace App\Http\Controllers\CallBack;
 
 use App\Http\Controllers\Controller;
 
-class LiveModule extends Controller{
+class live extends Controller{
     public function handle(){
 
     }

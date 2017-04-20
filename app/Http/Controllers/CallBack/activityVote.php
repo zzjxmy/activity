@@ -12,7 +12,7 @@ namespace App\Http\Controllers\CallBack;
 
 use App\Http\Controllers\Controller;
 
-class ActivityVote extends Controller{
+class activityVote extends Controller{
     public function handle(){
 
     }

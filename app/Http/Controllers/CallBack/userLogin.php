@@ -12,7 +12,7 @@ namespace App\Http\Controllers\CallBack;
 
 use App\Http\Controllers\Controller;
 
-class UserLogin extends Controller{
+class userLogin extends Controller{
     public function handle(){
 
     }

@@ -20,7 +20,7 @@ trait Log{
      */
     public function callBackLog($title,$data,$message){
         if($this->saveCallBackLog){
-            \Log::info('哎呀回调了啊');
+            \Log::info($message);
         }
     }
 }

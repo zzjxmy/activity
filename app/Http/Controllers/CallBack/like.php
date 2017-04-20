@@ -12,7 +12,7 @@ namespace App\Http\Controllers\CallBack;
 
 use App\Http\Controllers\Controller;
 
-class LikeModule extends Controller{
+class like extends Controller{
     public function handle(){
 
     }
